@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name:Brlcad-Docbook
-Url:hiteshkumarsofat.wordpress.com
+Url:hiteshkumarsofat.docbook.com
 */
 ini_set('default_charset', 'utf-8');
 require_once(dirname(__FILE__)."/config.php");
@@ -82,11 +82,10 @@ function review_edit(){
 	}
 	else
 	{
-		echo "<table class='wp-list-table widefat fixed striped posts'><tr>
-	        	<th>Filename</th>
-	        	<th>Option</th>
-	        	</tr>";
 		$review_dir = scandir(review_queue_directory);
+		$edit_files_name = array();
+		$edit_files = array();
+		$count = 0;
 		foreach ($review_dir as $name) 
 		{
 			if(is_dir($name))
@@ -122,30 +121,53 @@ function review_edit(){
 					$length = sizeof($filename_of_original_file);
 					if(strpos($name, "xml"))
 					{
-	        			echo "<tr>
-	        			<td>".$filename_of_original_file[$length-1]."</td>
-						<td>
-							<a href='".home_url()."/wp-admin/admin.php?page=review&newarticles=".$name."&dif=ok' class='button button-primary'>Review</a>
-						</td>
-						</tr>";					
+	        			array_push($edit_files, $filename_of_original_file[$length-1]);
+	        			array_push($edit_files_name, $name);
+
 					}
 				}
 			}
 
 		}
-	echo "</table>";
-
-	}	
+		if(isset($_GET['pv']))
+		{
+			$pv = $_GET['pv']*10;
+			$pn = $pv + 10;			
+		}
+		else
+		{
+			$pv = 1;
+			$pn =10;
+		}
+		echo "<table class='wp-list-table widefat fixed striped posts'>";
+		echo "<tr class='inline-edit-row inline-edit-row-post inline-edit-post quick-edit-row quick-edit-row-post inline-edit-post'><th>File name</th><th>Category</th><th>Option</th></tr>";
+		for($pv; $pv<$pn;$pv++)
+		{
+			if(isset($edit_files[$pv]))
+			{
+				echo "<tr><td>".$edit_files[$pv]."</td><td><a href='".home_url()."/wp-admin/admin.php?page=review&newarticles=".$edit_files_name[$pv]."&dif=ok' class='button button-primary'>Review</a></td></tr>";
+			}
+		}
+		echo "</table>";
+		$pages = abs(sizeof($edit_files)/10);
+		echo "<table><tr>";
+		for($i = 0;$i<$pages;$i++)
+		{
+			echo "<td><a href='".home_url()."/wp-admin/admin.php?page=review_edit&pv=".$i."&pn=".$i."' class='button button-primary'>".$i."</a></td>";
+		}
+		echo "</tr></table>";
+		}
+	
 }
 
 /*Without Login Edit Logic*/
 
-function without_xml_edit(){
+function xml_edit(){
 	if(strlen($_GET['article'])>2)	
 	{
 		$filename = explode("/", $_GET['article']);
 		$length = sizeof($filename);
-		$file_according_category = explode("wordpress", $_GET['article']);
+		$file_according_category = explode(wordpress_folder, $_GET['article']);
 		$filename_in_xml = str_replace("php", "xml",$filename[$length-1]);
 		$editable_file = str_replace("/", "123", $file_according_category[1]);
 		if(!$_GET['detect'])
@@ -155,7 +177,7 @@ function without_xml_edit(){
 	 			$editable_file = "123system".$editable_file;
 	 		}
 	 	}
-echo		$editable_file  = str_replace("php", "xml", $editable_file);
+		$editable_file  = str_replace("php", "xml", $editable_file);
 		if(file_exists(review_queue_directory.$_GET['article']))
 		{
 			$original_file = explode("123", $editable_file);
@@ -176,7 +198,7 @@ echo		$editable_file  = str_replace("php", "xml", $editable_file);
 			$original_file = explode("123", $editable_file);
 			for($i = 1; $i < sizeof($original_file); $i++)
 			{
-				$file_path =$file_path.$original_file[$i]."/"; 
+		echo		$file_path =$file_path.$original_file[$i]."/"; 
 			}
 			$original_filename = str_replace("xml/", "xml", $file_path);
 			shell_exec("cp ".brlcad_source.$original_filename." ".review_queue_directory.$editable_file);
@@ -195,11 +217,11 @@ echo		$editable_file  = str_replace("php", "xml", $editable_file);
 	{
 		if($_POST['submit'])
 		{
-			without_submit_editing();
+			submit_editing();
 		}
 		if($_POST['preview'])
 		{
-			without_login_preview();
+			login_preview();
 		}
 	}
 	if(isset($_GET['msg']))

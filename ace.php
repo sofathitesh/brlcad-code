@@ -4,16 +4,16 @@ ini_set('default_charset', 'utf-8');
 <html>
 <head>
   <!-- Firebase -->
-  <script src="firebase.js"></script>
+  <script src="js/firebase.js"></script>
 
   <!-- ACE and its JavaScript mode and theme files -->
-  <script src="ace.js"></script>
-  <script src="mode-javascript.js"></script>
-  <script src="theme-textmate.js"></script>
+  <script src="js/ace.js"></script>
+  <script src="js/mode-javascript.js"></script>
+  <script src="js/theme-textmate.js"></script>
 
   <!-- Firepad -->
-  <link rel="stylesheet" href="firepad.css" />
-  <script src="firepad.min.js"></script>
+  <link rel="stylesheet" href="css/firepad.css" />
+  <script src="js/firepad.min.js"></script>
 
   <style>
     html { height: 100%; }
@@ -104,13 +104,13 @@ $("#msg").hide(10000);
 });
 $("#del").click(function(){
 firepadRef.remove();
-window.location.href="index.php";
+window.location.href="../../../index.php";
 });
 setInterval(function(){
 	location.reload(); 
 },100000);
 
-    }
+}
 
     // Helper to get hash from end of URL or generate a random one.
     function getExampleRef() {
