@@ -1,5 +1,5 @@
 <!DOCTYPE div PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><?php 
-      require('wp-blog-header.php'); 
+      require('../../../wp-blog-header.php'); 
       class MyPost { var $post_title = "BRL-CAD MAIN MENU"; }
       $wp_query->is_home = false;
       $wp_query->is_single = true;
@@ -22,13 +22,13 @@ echo "<ol>";
 if($_POST['document'])
 {
 foreach ($document_folder as $directory) {
-    $language_directory = scandir(dirname(__FILE__)."/".$directory);
+    $language_directory = scandir("../../../".$directory);
     foreach ($language_directory as $files_directory) {
     	if($files_directory == "." OR $files_directory == '..')
     	{
     	}else
     	{
-    		$files = scandir(dirname(__FILE__)."/".$directory."/".$files_directory);
+    		$files = scandir("../../../".$directory."/".$files_directory);
     		foreach ($files as $filename)
     		{
                 if($filename == "." OR $filename == "..")
@@ -60,8 +60,6 @@ echo "</ol>";
 </div>
 </div>
 <div id="content-side2"><div class="row"><div id="secondary" class="widget-area" role="complementary"><?php 
-    include('search_document.php');
-//    include('articles/en/main_menu.html');
     ?></div></div></div><?php 
       get_footer(); 
     ?>

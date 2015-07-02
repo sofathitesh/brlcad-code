@@ -6,13 +6,11 @@
 
 4) Copy the brlcad folder to Theme directroy of wordpress ex:- wordpress/wp-content/themes/
 
-5) Copy the search_document2.php file to root directory of wordpress ex:- wordpress/
-
-6) Download the brlcad code form my svn repo using this command
+5) Download the brlcad code form my svn repo using this command
 
 svn checkout http://svn.code.sf.net/u/hiteshsofat/brlcad/ mybrlcadcode
 
-7) Copy the copy_document.sh script file to brlcad source code mybrlcadcode/brlcad/trunk/
+6) Copy the copy_document.sh script file to brlcad source code mybrlcadcode/brlcad/trunk/
 
 
 
