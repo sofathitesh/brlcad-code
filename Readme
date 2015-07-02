@@ -1,0 +1,64 @@
+1) Download the code
+
+2) Untar the files 
+
+3) Copy the brlcad-docbook  folder to your wordpress plugin directroy ex:- wordpress/wp-content/plugins/
+
+4) Copy the brlcad folder to Theme directroy of wordpress ex:- wordpress/wp-content/themes/
+
+5) Copy the search_document2.php file to root directory of wordpress ex:- wordpress/
+
+6) Download the brlcad code form my svn repo using this command
+
+svn checkout http://svn.code.sf.net/u/hiteshsofat/brlcad/ mybrlcadcode
+
+7) Copy the copy_document.sh script file to brlcad source code mybrlcadcode/brlcad/trunk/
+
+
+
+Now for activate the theme and plugin
+
+
+1) Open your wordpress account as wordpress admin
+
+2) Go in plugin section and click on active brlcad-docbook plugin
+
+3) Go in appearance and then click on theme.
+
+4) Now click on brlcad  theme active button so your theme is activate.
+
+
+Now for plugin settings
+
+1) Go in plugin directory
+
+wordpress/wp-content/plugins/brlcad-docbook
+
+2) open config.php file
+
+3) Set you brlcad source code path
+
+4) set your review directory path (which are placed in wordpress folder if there is not placed then make one directory there and set the name of directory is review)
+
+5) Set the you wordpress directory name like :- wordpress, etc.
+
+
+Now for copy_document.sh script settings.
+
+1) Copy the script and place in brlcad source folder ex:- mybrlcadsource/brlcad/trunk/
+
+2) Open copy_document.sh in editor and do some settings
+
+3) set the brlcad source code directory path
+
+4) set the wordpress directory path
+
+
+How to run the project
+
+1) gave the 755 permission to copy_document.sh file
+2) run ./copy_document.sh
+3) open you browser and type link like:-  
+
+servername/wordpress_folder_name/articles/en/about.php
+
