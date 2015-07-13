@@ -83,7 +83,7 @@ foreach ($document_folder as $directory) {
                         $remove_extension = explode(".", $filename);
                         if(preg_match("/^".$_POST['document']."/",$remove_extension[0]))
                         {
-                            echo "<form action='".home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".str_replace("system/","",str_replace("docbook",wordpress_folder,brlcad_source.$directory))."/".$files_directory."/".str_replace("xml","php",$filename)."' method='post'>";
+                            echo "<form action='".home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".str_replace("system/","",brlcad_source.$directory)."/".$files_directory."/".str_replace("xml","php",$filename)."' method='post'>";
                             echo "<tr><td>".$filename."</td><td>".$directory."</td><td><input type='submit' class='button button-primary' value='Edit'></td></tr>";
                             echo "</form>";
                         }
@@ -147,9 +147,12 @@ echo "<table class='wp-list-table widefat fixed striped posts'>";
 echo "<tr class='inline-edit-row inline-edit-row-post inline-edit-post quick-edit-row quick-edit-row-post inline-edit-post'><th>File name</th><th>Category</th><th>Option</th></tr>";
 for($pv; $pv<$pn;$pv++)
 {
-	echo "<form action='".home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".str_replace("system/","",str_replace("docbook",wordpress_folder,brlcad_source.$directory_name[$pv]))."/".$languages[$pv]."/".str_replace("xml","php",$files_array[$pv])."' method='post'>";
-	echo "<tr><td>".$files_array[$pv]."</td><td>".$directory_name[$pv]."</td><td><input type='submit' class='button button-primary' value='Edit'></td></tr>";
-	echo "</form>";
+    if(isset($files_array[$pv]))
+    {
+       echo "<form action='".home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".str_replace("system/","",brlcad_source.$directory_name[$pv])."/".$languages[$pv]."/".str_replace("xml","php",$files_array[$pv])."' method='post'>";
+	   echo "<tr><td>".$files_array[$pv]."</td><td>".$directory_name[$pv]."</td><td><input type='submit' class='button button-primary' value='Edit'></td></tr>";
+	   echo "</form>";
+    }
 }
 echo "</table>";
 $pages = abs(sizeof($files_array)/20);

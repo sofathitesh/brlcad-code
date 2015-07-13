@@ -13,7 +13,6 @@ ini_set('default_charset', 'utf-8');
 
   <!-- Firepad -->
   <link rel="stylesheet" href="css/firepad.css" />
-  <link rel="stylesheet" href="css/jquery.treemenu.css" />
   <script src="js/firepad.min.js"></script>
 
   <style>
@@ -54,23 +53,10 @@ color:blue;
 <input type="button" id="del" value="Main Website">
 <div id="link"></div>
 <div id="msg"></div>
-
 </div>
-
 <div id="firepad-container"></div>
-<div class="main_menu">
-<?php
-$file = fopen('../../../articles/en/main_menu.html','r');
-$fr = fread($file, filesize('../../../articles/en/main_menu.html'));
-$fr = str_replace(".php", ".php?mode=edit", $fr);
-$fr = str_replace("../../", "../../../", $fr);
-echo $fr;
-?>
-</div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="js/jquery.treemenu.js"></script>
   <script>
-make_tree_menu('itemizedlist');
   var editor;
 	var firepadRef;
     function init() {
@@ -87,13 +73,13 @@ make_tree_menu('itemizedlist');
       session.setMode("ace/mode/javascript");
       var data;
       //// Create Firepad.
-$.get('edit.php?articleget=<?php echo $_GET['article'];?>',function(data){
+$.get('edit.php?new_document=<?php echo $_GET['new_document'];?>',function(data){
       var firepad = Firepad.fromACE(firepadRef, editor, {
         defaultText: data
       });
  //`     alert(data);
 setInterval(function(){
-$.post('edit.php?method=edit&newarticles=<?php echo $_GET['article'];?>',{'t1':editor.getValue()},function(data,error){
+$.post('edit.php?edit=new_document_edit&new_document=<?php echo $_GET['new_document'];?>',{'t1':editor.getValue()},function(data,error){
 $("#msg").show();
 document.getElementById('msg').innerHTML="<p>Data Is Saved</p>";
 $("#msg").hide(10000);
@@ -103,13 +89,13 @@ firepadRef.remove();
 });
 
 $("#preview").click(function(){
-$.post('edit.php?methods=preview&newarticles=<?php echo $_GET['article'];?>',{'t1':editor.getValue()},function(data,error){
+$.post('edit.php?preview=preview&new_document=<?php echo $_GET['new_document'];?>',{'t1':editor.getValue()},function(data,error){
 $("#link").show();
 document.getElementById('link').innerHTML=data;
 });
 });
 $("#save").click(function(){
-$.post('edit.php?methods=edit&newarticles=<?php echo $_GET['article'];?>',{'t1':editor.getValue()},function(data,error){
+$.post('edit.php?edit=new_document_edit&new_document=<?php echo $_GET['new_document'];?>',{'t1':editor.getValue()},function(data,error){
 $("#msg").show();
 firepadRef.remove();
 document.getElementById('msg').innerHTML="<p>Data Is Saved</p>";

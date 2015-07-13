@@ -323,7 +323,7 @@ function search_document()
 {
 	?>
 
-	<form action="<?php echo home_url();?>/search_document2.php" method="post">
+	<form action="<?php echo home_url();?>/wp-content/plugins/brlcad-docbook/search_document2.php" method="post">
 <div id="searchbox">
 <h5><img src="<?php echo  home_url();?>/wp-content/themes/brlcad/img/icons/home.png">&nbsp;&nbsp;&nbsp;BRL-CAD MAIN MENU</h5><br>
 	<input list="document" name="document" placeholder="Search Document" type="search">
@@ -343,13 +343,13 @@ array_push($document_folder, "presentations");
 array_push($document_folder, "specifications");
 echo "<datalist id='document'>";
 foreach ($document_folder as $directory) {
-    $language_directory = scandir(dirname(__FILE__)."/".$directory);
+    $language_directory = scandir("../../".$directory);
     foreach ($language_directory as $files_directory) {
     	if($files_directory == "." OR $files_directory == '..')
     	{
     	}else
     	{
-    		$files = scandir(dirname(__FILE__)."/".$directory."/".$files_directory);
+    		$files = scandir("../../".$directory."/".$files_directory);
     		foreach ($files as $filename)
     		{
                 if($filename == "." OR $filename == "..")
@@ -373,4 +373,7 @@ foreach ($document_folder as $directory) {
 echo "</datalist>";
 
 }
+
+
+
 ?>
