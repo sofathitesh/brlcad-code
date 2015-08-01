@@ -1,31 +1,40 @@
-/* For treemenu.js */
+.menu ul
+  {
+  margin:0px;
+  padding:0px;
+  }
+.menu li
+  {
+  margin:0px 0px 0px 5px;
+  padding:0px;
+  list-style-type:none;
+  text-align:left;
+  font-size:14px;
+  font-weight: bold;
+  }
 
+/* Submenu styles */
+.menu ul ul 
+  {  }
+.menu li li
+  { margin:0px 0px 0px 16px; }
 
-.treemenu li {list-style: none;}
+/* Symbol styles */
+.menu .symbol-item,
+.menu .symbol-open,
+.menu .symbol-close
+  {
+  float:left;
+  width:16px;
+  margin-top:1.5%;  
+  height:1em;
+  background-position:left center;
+  background-repeat:no-repeat;
+  }
+.menu .symbol-item  { background-image:url(../img/page.png);} 
+.menu .symbol-open  { background-image:url(../img/minus.png); }
+.menu .symbol-close { background-image:url(../img/plus.png);}
 
-.toggler {
-    width: 1em;
-    height: 1em;
-    display: inline-block;
-    cursor: default;
-    font-size: 0.8em;
-    text-align: center;
-    padding: 0.1em;
-    margin-left: -1.4em;
-    margin-right: 0.6em;
-    border: 0.1em solid transparent;
-    border-radius: 50%;
-}
-
-li.tree-opened > .toggler:hover,
-li.tree-closed > .toggler:hover {
-    border-color: #aaa;
-    cursor: pointer;
-}
-
-li.tree-empty > .toggler { color: #aaa; }
-li.tree-empty > span.toggler:before { content: "\2212"; }
-li.tree-closed > span.toggler:before { content: "+"; }
-li.tree-opened > span.toggler:before { content: "\2212"; }
-
-
+/* Menu line styles */
+.menu li.open  { font-weight:bold; }
+.menu li.close { font-weight:bold; }

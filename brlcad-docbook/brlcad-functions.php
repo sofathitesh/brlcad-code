@@ -322,11 +322,23 @@ function login_preview()
 function search_document()
 {
 	?>
-
+<script>
+  (function() {
+    var cx = '011789835326516392534:qmtejlm4yda';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
 	<form action="<?php echo home_url();?>/wp-content/plugins/brlcad-docbook/search_document2.php" method="post">
 <div id="searchbox">
-<h5><img src="<?php echo  home_url();?>/wp-content/themes/brlcad/img/icons/home.png">&nbsp;&nbsp;&nbsp;BRL-CAD MAIN MENU</h5><br>
-	<input list="document" name="document" placeholder="Search Document" type="search">
+
+	<input list="document" name="document" placeholder="Search Documents" type="search">
     </div>
 </form>
 

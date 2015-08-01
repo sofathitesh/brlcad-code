@@ -26,7 +26,7 @@ if(array_search("man1", $filename) or array_search("man3", $filename) or array_s
 echo $editable_file  = str_replace("php", "xml", $editable_file);
 xml_edit();
 $url = explode("docbook",$_GET['article']);
-$url_with_hash_key = home_url()."/wp-content/plugins/brlcad-docbook/ace.php?article=".$editable_file."#".md5($url[1]);
+$url_with_hash_key = home_url()."/wp-content/plugins/brlcad-docbook/ace.php?article=".$editable_file."&url=".$_GET['url']."#".md5($url[1]);
 wp_redirect($url_with_hash_key);
 }
 if(strlen($_GET['newarticles'])>2 && $_GET['methods']=="edit")
@@ -43,7 +43,7 @@ if(isset($_GET['method']))
 global $current_user;
 get_currentuserinfo();
 $editable_file = $current_user->user_login."123".$_POST['s1']."123".$_POST['s2']."123".$_POST['t1'].".xml";
-$url_with_hash_key = home_url()."/wp-content/plugins/brlcad-docbook/new_document.php?new_document=".$editable_file."#".md5($_POST['t1']);
+$url_with_hash_key = home_url()."/wp-content/plugins/brlcad-docbook/new_document.php?new_document=".$editable_file."&url=".$_GET['url']."#".md5($_POST['t1']);
 	wp_redirect($url_with_hash_key);
 }
 

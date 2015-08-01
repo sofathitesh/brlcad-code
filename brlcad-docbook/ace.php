@@ -60,6 +60,87 @@ color:blue;
 <div id="firepad-container"></div>
 <div class="main_menu">
 <?php
+echo "<table><tr><td>Change Language</td></tr></table>";
+echo "<div id='brlcad'>";
+$languages = array(
+  "aa"=>"South_Afriica.png",
+  "sq"=>"Albania.png",
+  "ar"=>"Arab_Language",
+  "hy"=>"Armenia.png",
+  "az"=>"Azerbaijan.png",
+  "be"=>"Belarus.png",
+  "bn"=>"Bangladesh.png",
+  "bs"=>"Bosnia_&_Herzegovina.png",
+  "bg"=>"Bulgaria.png",
+  "ca"=>"Andorra.png",
+  "ceb"=>"Philippines.png",
+  "zh"=>"China.png",
+  "hr"=>"Croatia.png",
+  "cs"=>"Czech_Republic.png",
+  "da"=>"Denmark.png",
+  "nl"=>"Netherlands.png",
+  "en"=>"United_Kingdom.png",
+  "et"=>"Estonia.png",
+  "fi"=>"Finland.png",
+  "fr"=>"France.png",
+  "ka"=>"Georgia.png",
+  "de"=>"Germany.png",
+  "el"=>"Greece.png",
+  "ht"=>"Haiti.png",
+  "ha"=>"Nigeria.png",
+  "id"=>"Indonesia.png",
+  "hi"=>"India.png",
+  "hu"=>"Hungary.png",
+  "is"=>"Iceland.png",
+  "ga"=>"Ireland.png",
+  "it"=>"Italy.png",
+  "ja"=>"Japan.png",
+  "km"=>"Viet_Nam.png",
+  "ko"=>"South_Korea.png",
+  "lo"=>"Thailand.png",
+  "lt"=>"Lithuania.png",
+  "mk"=>"Macedonia.png",
+  "ms"=>"Malaysia.png",
+  "mt"=>"Malta.png",
+  "mi"=>"New_Zealand.png",
+  "mn"=>"Mongolia.png",
+  "ne"=>"Nepal.png",
+  "pt"=>"Brazil.png",
+  "ro"=>"Romania.png",
+  "ru"=>"Russian_Federation.png",
+  "sr"=>"Serbia.png",
+  "sk"=>"Slovakia.png",
+  "so"=>"Somalia.png",
+  "es"=>"Spain.png",
+  "sw"=>"Kenya.png",
+  "sv"=>"Finland.png",
+  "tr"=>"Turkey.png",
+  "uk"=>"Ukraine.png",
+  "ur"=>"Pakistan.png",
+  "cy"=>"England.png",
+  );
+error_reporting(0);
+$dir = explode("123", $_GET['article']);
+$length = sizeof($dir);
+$dir_open = scandir("../../../".$dir[$length-3]);
+foreach ($dir_open as $dir_languages) {
+  if(!is_dir($dir_languages)) 
+    $file_search = scandir("../../../".$dir[$length-3]."/".$dir_languages);
+    foreach($file_search as $files){
+      if(strpos($files,".php"))
+      {
+        $get_first_word_of_filename = explode("_",$dir[$length-1]);
+        if(preg_match("/".str_replace(".xml","",$get_first_word_of_filename[0])."/", $files))
+        {
+          echo "<a href='../../../".$dir[$length-3]."/".$dir_languages."/".$files."?mode=edit'><img src='img/16/".$languages[$dir_languages]."' title='".$dir_languages."'></a>";
+          break;
+        }
+      }
+    }
+  }
+echo "</div>";
+?>
+<?php
 $file = fopen('../../../articles/en/main_menu.html','r');
 $fr = fread($file, filesize('../../../articles/en/main_menu.html'));
 $fr = str_replace(".php", ".php?mode=edit", $fr);
@@ -76,7 +157,7 @@ make_tree_menu('itemizedlist');
     function init() {
       //// Initialize Firebase.
   firepadRef = getExampleRef();
-      // TODO: Replace above line with:
+      // TODO: Romaniaeplace above line with:
 //       var firepadRef = new Firebase('hiteshsofat.firebaseIO.com');
       //// Create ACE
       editor = ace.edit("firepad-container");
@@ -118,7 +199,7 @@ $("#msg").hide(10000);
 });
 $("#del").click(function(){
 firepadRef.remove();
-window.location.href="../../../index.php";
+window.location.href="<?php echo $_GET['url'];?>";
 });
 setInterval(function(){
 	location.reload(); 

@@ -139,6 +139,8 @@ function brlcad_scripts() {
 
 	wp_enqueue_script( 'brlcad-documents', get_template_directory_uri() . '/js/jquery.treemenu.js', array(), '', true );
 
+	wp_enqueue_script( 'doc', get_template_directory_uri() . '/js/doc.js', array(), '', true );
+
 	wp_enqueue_script( 'brlcad-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -173,19 +175,200 @@ require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/jetpack.php';
 
 function edit(){
-	echo "<a href='".home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".urlencode($_SERVER['SCRIPT_FILENAME'])."'>
-	<input type='button' value='Edit'></a>";
+	$url = explode("/", $_SERVER['SCRIPT_FILENAME']);
+	$length = sizeof($url);
+	$call_back_url = home_url()."/".$url[$length-3]."/".$url[$length-2]."/".$url[$length-1];
+	if($_GET['mode'])
+	{
+		wp_redirect(home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".urlencode($_SERVER['SCRIPT_FILENAME']));
+	}else
+	{
+	echo "<a href='".home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".urlencode($_SERVER['SCRIPT_FILENAME'])."&url=".$call_back_url."'>
+	<input type='button' value='Edit'></a><br>";
+}
 }
 function without_login_edit(){
-	echo "<a href='".home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".urlencode($_SERVER['SCRIPT_FILENAME'])."'>
-	<input type='button' value='Edit'></a>";
+	$url = explode("/", $_SERVER['SCRIPT_FILENAME']);
+	$length = sizeof($url);
+	$call_back_url = home_url()."/".$url[$length-3]."/".$url[$length-2]."/".$url[$length-1];
+	if($_GET['mode'])
+	{
+		wp_redirect(home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".urlencode($_SERVER['SCRIPT_FILENAME']));
+	}else
+	{
+		if(array_search("presentations", $url))
+		{
+			echo "<table>"; 
+			echo "<tr><td>"; 
+	echo "<a href='".home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".urlencode($_SERVER['SCRIPT_FILENAME'])."&url=".$call_back_url."'>
+	<input type='button' value='Edit'></a></td><td>";			
+	echo "<a href='".home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".str_replace("Introduction-","",$_SERVER['SCRIPT_FILENAME'])."&url=".$call_back_url."'>
+	<input type='button' value='Edit Presentation'></a></td></tr></table>";			
+
+		}else
+		{
+	echo "<a href='".home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".urlencode($_SERVER['SCRIPT_FILENAME'])."&url=".$call_back_url."'>
+	<input type='button' value='Edit'></a><br>";
+}
+}
 }
 if(!function_exists(main_menu)):
 function main_menu()
 {
 $file = fopen('../../articles/en/main_menu.html','r');
 $fr = fread($file, filesize('../../articles/en/main_menu.html'));
-echo $fr;
+
+$url = explode("/",$_COOKIE["main_menu"]);
+$get_url_size = sizeof($url);
+//echo '"../../'.$url[$get_url_size-3].'/'.$url[$get_url_size-2].'/'.$url[$get_url_size-1].'"';
+$original = 'href="../../'.$url[$get_url_size-3].'/'.$url[$get_url_size-2].'/'.$url[$get_url_size-1].'"';
+$replaced = 'id="unique" href="../../'.$url[$get_url_size-3].'/'.$url[$get_url_size-2].'/'.$url[$get_url_size-1].'"';
+$fr =str_replace($original, $replaced, $fr);
+$fr =str_replace("../xxx.php", "#", $fr);
+$fr = str_replace("<a","<a onclick='TreeMenu.toggle(this)'", $fr);
+		echo $fr;
 }
 endif;
+
+if(!function_exists(brlcad_language)):
+function brlcad_language(){
+echo "<div id='brlcad'>";
+$languages = array(
+	"aa"=>"South_Afriica.png",
+	"sq"=>"Albania.png",
+	"ar"=>"Arab_Language",
+	"hy"=>"Armenia.png",
+	"az"=>"Azerbaijan.png",
+	"be"=>"Belarus.png",
+	"bn"=>"Bangladesh.png",
+	"bs"=>"Bosnia_&_Herzegovina.png",
+	"bg"=>"Bulgaria.png",
+	"ca"=>"Andorra.png",
+	"ceb"=>"Philippines.png",
+	"zh"=>"China.png",
+	"hr"=>"Croatia.png",
+	"cs"=>"Czech_Republic.png",
+	"da"=>"Denmark.png",
+	"nl"=>"Netherlands.png",
+	"en"=>"United_Kingdom.png",
+	"et"=>"Estonia.png",
+	"fi"=>"Finland.png",
+	"fr"=>"France.png",
+	"ka"=>"Georgia.png",
+	"de"=>"Germany.png",
+	"el"=>"Greece.png",
+	"ht"=>"Haiti.png",
+	"ha"=>"Nigeria.png",
+	"id"=>"Indonesia.png",
+	"hi"=>"India.png",
+	"hu"=>"Hungary.png",
+	"is"=>"Iceland.png",
+	"ga"=>"Ireland.png",
+	"it"=>"Italy.png",
+	"ja"=>"Japan.png",
+	"km"=>"Viet_Nam.png",
+	"ko"=>"South_Korea.png",
+	"lo"=>"Thailand.png",
+	"lt"=>"Lithuania.png",
+	"mk"=>"Macedonia.png",
+	"ms"=>"Malaysia.png",
+	"mt"=>"Malta.png",
+	"mi"=>"New_Zealand.png",
+	"mn"=>"Mongolia.png",
+	"ne"=>"Nepal.png",
+	"pt"=>"Brazil.png",
+	"ro"=>"Romania.png",
+	"ru"=>"Russian_Federation.png",
+	"sr"=>"Serbia.png",
+	"sk"=>"Slovakia.png",
+	"so"=>"Somalia.png",
+	"es"=>"Spain.png",
+	"sw"=>"Kenya.png",
+	"sv"=>"Finland.png",
+	"tr"=>"Turkey.png",
+	"uk"=>"Ukraine.png",
+	"ur"=>"Pakistan.png",
+	"cy"=>"England.png",
+	);
+$languages_with_fullname = array(
+	"aa"=>"Afrikaans",
+	"sq"=>"shqip",
+	"ar"=>" العربية",
+	"hy"=>"Հայերէն",
+	"az"=>"آذربايجانجا ديلي",
+	"be"=>"Беларуская мова",
+	"bs"=>"bosanski",
+	"bg"=>"Bulgraian",
+	"zh"=>"廣東話",
+	"hr"=>"Hrvatski",
+	"da"=>"dansk",
+	"en"=>"English",
+	"fr"=>"français",
+	"ka"=>"ქართული",
+	"el"=>"ελληνικά",
+	"id"=>"Bahasa Indonesia",
+	"hi"=>"हिन्दी",
+	"hu"=>"magyar nyelv",
+	"is"=>"Íslenska",
+	"ga"=>"Ghaeilge",
+	"it"=>"italiano",
+	"ja"=>"日本語",
+	"km"=>"ភាសាខ្មែរ",
+	"lo"=>"ພາສາລາວ",
+	"lt"=>"lietuvių kalba",
+	"mk"=>"македонски",
+	"mi"=>"te Reo Māori",
+	"ro"=>"limba română",
+	"ru"=>"Русский язык",
+	"sr"=>"српски",
+	"sk"=>"slovenčina",
+	"es"=>"español",
+	"sw"=>"Kiswahili",
+	"ur"=>" اردو",	);
+error_reporting(0);
+$dir = explode("/", $_SERVER['SCRIPT_FILENAME']);
+$length = sizeof($dir);
+$dir_open = scandir("../../".$dir[$length-3]);
+echo "<table>";
+foreach ($dir_open as $dir_languages) {
+	if(!is_dir($dir_languages))	
+		$file_search = scandir("../../".$dir[$length-3]."/".$dir_languages);
+		foreach($file_search as $files){
+			if(strpos($files,".php"))
+			{
+				$get_first_word_of_filename = explode("_",$dir[$length-1]);
+ 				if(preg_match("/".str_replace(".php","",$get_first_word_of_filename[0])."/", $files))
+				{
+					echo "<tr><td style='width:10%'><a href='".home_url()."/".$dir[$length-3]."/".$dir_languages."/".$files."'>
+					<img src='".get_template_directory_uri(__FILE__)."/img/16/".$languages[$dir_languages]."' title='".$dir_languages."'></a></td><td><a href='".home_url()."/".$dir[$length-3]."/".$dir_languages."/".$files."'>".$languages_with_fullname[$dir_languages]."</a></td>
+	</tr>";
+					break;
+				}
+			}
+		}
+	}
+echo "</table></div>";
+}
+endif;
+
+if(!function_exists(google_languages)):
+function google_languages(){
+	echo "<br><table style='width:100%'><tr><td style='width:70%'><a href='#' id='menu'>Additional Languages</a></td><td>	
+	<img src='".get_template_directory_uri()."/img/icons/downn.png' width='30%' id='down'>
+	<img src='".get_template_directory_uri()."/img/icons/up.png' width='30%' id='up'></td></tr></table>";
+?> 
+<?php echo do_shortcode('[google-translator]'); ?>
+ <?php
+//	echo do_shortcode('[google-translator]');
+ 
+
+}
+
+endif;
+if(!function_exists(up_scroll)):
+function up_scroll(){
+	echo "<img src='".get_template_directory_uri()."/img/icons/scroll.png' width='50%' title='Move to top'>";
+}
+endif;
+
 ?>

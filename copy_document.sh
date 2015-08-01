@@ -1,6 +1,6 @@
 #!/bin/bash
-brlcad_resource_path="/path/brlcad source code/"
-wordpress_path="/path/to/wordpress/"
+brlcad_resource_path="/home/sofat/mybrlcadcode/brlcad/trunk/"
+wordpress_path="/var/www/html/docbook/"
 username='hiteshsofat'
 password='hitesh@123'
 #SVN Commit
@@ -59,6 +59,8 @@ if [ ! -z "$output" ]
 					if  [ -d "${directory[$i]}/${language_directory[$j]}" ]
 					then					
 						sed -i 's/<?xml version="1.0" encoding="UTF-8"?>//g' "${directory[$i]}/${language_directory[$j]}/"*.php
+						sed -i 's/<link rel="stylesheet" type="text/css" href="../../css/brlcad.css">//g' "${directory[$i]}/${language_directory[$j]}/"*.php
+
 					else
 						echo "${directory[$i]}/${language_directory[$j]}/ directory not found"
 					fi
@@ -73,6 +75,7 @@ if [ ! -z "$output" ]
 					if  [ -d "${directory[$i]}/${language_directory[$j]}" ]
 					then					
 						sed -i 's/<?xml version="1.0" encoding="UTF-8"?>//g' "${directory[$i]}/${language_directory[$j]}/"*.php
+						sed -i 's/<link rel="stylesheet" type="text/css" href="../../css/brlcad.css">//g' "${directory[$i]}/${language_directory[$j]}/"*.php
 					else
 						echo "${directory[$i]}/${language_directory[$j]}/ directory not found"
 					fi
@@ -89,7 +92,8 @@ if [ ! -z "$output" ]
 	sed -i 's/<p>//g' "articles/en/main_menu.html"
 	sed -i 's/<[/]p>//g' "articles/en/main_menu.html"
 	sed -i 's/<hr><[/]hr>//g' "articles/en/main_menu.html"
-	sed -i 's/<body><ul>/<body><ul class="itemizedlist">/g' "articles/en/main_menu.html"
+	sed -i 's/<body><ul>/<body><div class="menu"><ul id="itemizedlist">/g' "articles/en/main_menu.html"
+	sed -i 's/<\/body><\/html>/<\/div>/g' "articles/en/main_menu.html"
 	else
 		echo "Source or destination resource not found"
 	fi

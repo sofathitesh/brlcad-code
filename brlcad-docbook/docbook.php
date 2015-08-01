@@ -12,12 +12,15 @@ function brlcad_menu(){
 add_menu_page('XML files', 'XML Files', 'read', 'brlcad-docbook/brlcad-admin.php', '','', 6 );
 add_submenu_page( NULL, 'Review', 'Review', 'manage_options', 'review','review');
 add_submenu_page( 'brlcad-docbook/brlcad-admin.php', 'Review Edit', 'Review Edit', 'manage_options', 'review_edit','review_edit');
-add_submenu_page( 'brlcad-docbook/brlcad-admin.php', 'New_Document', 'Add New Document', 'manage_options', 'new_document','new_document');
-add_submenu_page( 'brlcad-docbook/brlcad-admin.php', 'ALL_Documents', 'All Document', 'manage_options', 'all_document','all_document');
-add_submenu_page( NULL, 'Rename', 'Rename', 'manage_options', 'rename','rename_doc');
-add_submenu_page( NULL, 'Invite', 'Invite', 'manage_options', 'invite_user','invite_user');
+add_submenu_page( 'brlcad-docbook/brlcad-admin.php', 'New_Document', 'Add New Document', 'read', 'new_document','new_document');
+add_submenu_page( 'brlcad-docbook/brlcad-admin.php', 'ALL_Documents', 'All Document', 'read', 'all_document','all_document');
+add_submenu_page( NULL, 'Rename', 'Rename', 'read', 'rename','rename_doc');
+add_submenu_page( NULL, 'Invite', 'Invite', 'read', 'invite_user','invite_user');
 add_submenu_page( NULL, 'cmake', 'cmake', 'manage_options', 'cmake','cmake');
 add_submenu_page( NULL, 'add', 'add', 'manage_options', 'add','add');
+add_submenu_page( NULL, 'reject', 'reject', 'manage_options', 'reject','reject');
+add_submenu_page( NULL, 'delete', 'delete', 'read', 'delete','delete');
+add_submenu_page( NULL, 'full_delete', 'full_delete', 'read', 'full_delete','full_delete');
 add_submenu_page( 'brlcad-docbook/brlcad-admin.php', 'Review_New_Document', 'Review_New_Document', 'manage_options', 'Review_New_Document','Review_New_Document');
 }
 function my_script_method()
@@ -145,12 +148,6 @@ function review_edit(){
 					if(strpos($name, "xml"))
 					{
 						$edit_files[$count] = $name;
-/*	        			echo "<tr>
-	        			<td>".str_replace("123","-",$filename_of_original_file[$length-1])."</td>
-						<td>
-							<a href='".home_url()."/wp-admin/admin.php?page=review&newarticles=".$name."&dif=ok' class='button button-primary'>Review</a>
-						</td>
-						</tr>";					*/
 						$count++;
 					}
 				}
@@ -229,6 +226,7 @@ function xml_edit(){
 		echo		$file_path =$file_path.$original_file[$i]."/"; 
 			}
 			$original_filename = str_replace("xml/", "xml", $file_path);
+			echo "cp ".brlcad_source.$original_filename." ".review_queue_directory.$editable_file;
 			shell_exec("cp ".brlcad_source.$original_filename." ".review_queue_directory.$editable_file);
 			$file = fopen(brlcad_source.$original_filename, "r");
 			$data = fread($file, filesize(brlcad_source.$original_filename));
@@ -259,6 +257,7 @@ function xml_edit(){
 }
 
 function new_document(){
+$url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 ?>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -270,7 +269,8 @@ $("#s2").append(data);
 });
 });
 </script>
-<form action="<?php echo plugins_url('edit.php',__FILE__);?>?method=new_document" method='post'>
+
+<form action="<?php echo plugins_url('edit.php',__FILE__);?>?method=new_document&url=<?php echo $url;?>" method='post'>
 <table>
 	<tr>
 		<td>Document Name</td>
@@ -354,6 +354,7 @@ function new_document_xml_edit(){
 
 function all_document()
 {
+	$url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 	if($_GET['msg'])
 	{
 	echo "<div id='message' class='updated notice notice-success is-dismissible below-h2'><p>Document successfully Submit </p><button type='button' class='notice-dismiss'><span class='screen-reader-text'>Dismiss this notice.</span></button></div>";		
@@ -361,7 +362,7 @@ function all_document()
 	if($_GET['delete'])
 	{
 	echo "<div id='message' class='updated notice notice-success is-dismissible below-h2'><p>Document successfully Delete </p><button type='button' class='notice-dismiss'><span class='screen-reader-text'>Dismiss this notice.</span></button></div>";		
-	}
+	} 
 	if($_GET['rename'])
 	{
 	echo "<div id='message' class='updated notice notice-success is-dismissible below-h2'><p>Document successfully renamed </p><button type='button' class='notice-dismiss'><span class='screen-reader-text'>Dismiss this notice.</span></button></div>";		
@@ -393,7 +394,7 @@ echo "<tr class='inline-edit-row inline-edit-row-post inline-edit-post quick-edi
                    if($current_user->user_login == $user[0])
                 {
                     echo "<form action='".plugins_url()."/brlcad-docbook/edit.php?submit=".$files_directory."' method='post'><tr><td>".$user[$length-1]."</td><td>".$user[1]."</td><td>".$user[2]."</td><td><input type='submit' class='button button-primary' value='Submit For Review'></td></form>
-                    <form action='".plugins_url()."/brlcad-docbook/new_document.php?new_document=".$files_directory."' method='post'><td><input type='submit' class='button button-primary' value='Edit'></td></form>
+                    <form action='".plugins_url()."/brlcad-docbook/new_document.php?new_document=".$files_directory."&url=".$url."' method='post'><td><input type='submit' class='button button-primary' value='Edit'></td></form>
                     <form action='".home_url()."/wp-admin/admin.php?page=invite_user&new_document=".$files_directory."' method='post'><td><input type='submit' class='button button-primary' value='Invite users'></td></form>
                     <form action='".home_url()."/wp-admin/admin.php?page=rename&new_document=".$files_directory."' method='post'><td><input type='submit' class='button button-primary' value='Rename'></td></form>
                     <form action='".plugins_url()."/brlcad-docbook/edit.php?delete=".$files_directory."' method='post'><td><input type='submit' class='button button-primary' value='Delete'></td></form></tr>";
@@ -447,11 +448,15 @@ function Review_New_Document()
 	{
 	echo "<div id='message' class='updated notice notice-success is-dismissible below-h2'><p>Document successfully Delete </p><button type='button' class='notice-dismiss'><span class='screen-reader-text'>Dismiss this notice.</span></button></div>";		
 	}
-
+	if($_GET['email'])
+	{
+	echo "<div id='message' class='updated notice notice-success is-dismissible below-h2'><p>Mail successfully Send to user </p><button type='button' class='notice-dismiss'><span class='screen-reader-text'>Dismiss this notice.</span></button></div>";		
+	}
 echo "<table class='wp-list-table widefat fixed striped posts'>";
 echo "<tr class='inline-edit-row inline-edit-row-post inline-edit-post quick-edit-row quick-edit-row-post inline-edit-post'><th>File name</th><th>Category</th><th>Language</th><th>Preview</th>
 <th>Delete</th>
 <th>Accept</th>
+<th>Reject</th>
 </tr>";
  $language_directory = scandir(new_document_directory);
     foreach ($language_directory as $files_directory) {
@@ -471,6 +476,7 @@ echo "<tr class='inline-edit-row inline-edit-row-post inline-edit-post quick-edi
                     echo "<form action='".plugins_url()."/brlcad-docbook/edit.php?preview_other=preview&new_document=".$files_directory."' method='post'><tr><td>".$user[$length-1]."</td><td>".$user[2]."</td><td>".$user[3]."</td><td><input type='submit' class='button button-primary' value='Preview'></td></form>
                     <form action='".plugins_url()."/brlcad-docbook/edit.php?delete=".$files_directory."&admin=yes' method='post'><td><input type='submit' class='button button-primary' value='Delete'></td></form>
                     <form action='".home_url()."/wp-admin/admin.php?page=cmake&file=".$files_directory."' method='post'><td><input type='submit' class='button button-primary' value='Accpet'></td></form>
+                    <form action='".home_url()."/wp-admin/admin.php?page=reject&file=".$files_directory."' method='post'><td><input type='submit' class='button button-primary' value='Reject'></td>
                     </form></tr>";
                     echo "</form>";
                 }
@@ -502,9 +508,59 @@ function add(){
 	shell_exec("mv ".new_document_directory.$_GET['file']." ".brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/".$get_cmakefile_path[$length-1]);
 	shell_exec("svn add ".brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/".$get_cmakefile_path[$length-1]);
 	shell_exec("rm -r ".brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/CMakeLists.patch");
-	shell_exec("rm -r ".new_document.$_GET['file']);
-	shell_exec("rm -r ".new_document.str_replace(".xml", ".html", $_GET['file']));
-	shell_exec("rm -r ".new_document."CMakeLists.txt");
+	shell_exec("rm -r ".new_document_directory.$_GET['file']);
+	shell_exec("rm -r ".new_document_directory.str_replace(".xml", ".html", $_GET['file']));
+	shell_exec("rm -r ".new_document_directory."CMakeLists.txt");
 	echo "<div id='message' class='updated notice notice-success is-dismissible below-h2'><p>Document successfully Added </p><button type='button' class='notice-dismiss'><span class='screen-reader-text'>Dismiss this notice.</span></button></div>";		
+}
+function reject(){
+	global $current_user;
+	get_currentuserinfo();
+	if(isset($_POST['send']))
+	{
+		mail($_POST['t1'],$_POST['t2'],$_POST['t3']);
+		wp_redirect(home_url()."/wp-admin/admin.php?page=Review_New_Document&email=yes");
+	}
+shell_exec("mv ".new_document_directory.$_GET['file']." ".new_document_directory.str_replace("submit123","",$_GET['file']));
+$connect  = mysql_connect(DB_HOST,DB_USER,DB_PASSWORD);
+mysql_select_db(DB_NAME,$connect);
+$result = mysql_query("select * from wp_users where user_login='".$current_user->user_login."'");
+$data = mysql_fetch_array($result);
+echo "<h4>Reply to user write down reason for reject document or any error</h4>";
+echo "<form action='' method='Post'><table><tr>
+		<td>Email-id</td><td><input type='email' name='t1' value=".$data['user_email']."></td></tr><tr>
+		<td>Subject</td><td><input type='text' name='t2'></td></tr>
+		<td>Message</td><td><textarea cols='40' rows='20' name='t3'>Message</textarea></td>
+		</tr><tr><td><input type='submit' value='Send Mail' name='send'></td></tr></table></form>";
+
+}
+function delete(){
+echo "<h3>Please remove the name of file from CMakeLists file</h3>";
+$cmake = explode("/", $_GET['article']);
+$length = sizeof($cmake);
+echo "<form action='".home_url()."/wp-admin/admin.php?page=full_delete&article=".$_GET['article']."' method='Post'>";
+$cmake_file = str_replace($cmake[$length-1], "CMakeLists.txt", $_GET['article']);
+shell_exec("cp ".$cmake_file." ".review_queue_directory.str_replace("/","123",$cmake_file));
+$cmake_open = fopen(review_queue_directory.str_replace("/", "123", $cmake_file),"r");
+$file_data = fread($cmake_open, filesize($cmake_file));
+echo "<textarea cols='60' rows='20' name='data'>".$file_data."</textarea> <br> ";
+fclose($cmake_open);
+echo "<input type='submit' value='Delete'>";
+}
+
+function full_delete( ){ 
+$cmake = explode("/", $_GET['article']);
+$length = sizeof($cmake);
+$cmake_file = str_replace($cmake[$length-1], "CMakeLists.txt", $_GET['article']);
+$cmake_open = fopen(review_queue_directory.str_replace("/", "123", $cmake_file),"w+");
+$file_data = fwrite($cmake_open, $_POST['data']);
+fclose($cmake_open);
+shell_exec("diff -u -b ".$cmake_file." ".review_queue_directory.str_replace("/", "123",$cmake_file). "> "  .str_replace("CMakeLists.txt","",$cmake_file)."CMakeLists.patch");
+shell_exec("patch ".$cmake_file." < ".str_replace("CMakeLists.txt", "CMakeLists.patch", $cmake_file)." ");
+shell_exec("rm -r ".str_replace("CMakeLists.txt", "CMakeLists.patch", $cmake_file));
+shell_exec("rm -r ".review_queue_directory.str_replace("/", "123", $cmake_file));
+shell_exec("rm -r ".$_GET['article']);
+shell_exec("svn remove ".$_GET['article']);
+echo "<div id='message' class='updated notice notice-success is-dismissible below-h2'><p>Document successfully Deleted </p><button type='button' class='notice-dismiss'><span class='screen-reader-text'>Dismiss this notice.</span></button></div>";		
 }
 ?>
