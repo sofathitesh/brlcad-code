@@ -10,19 +10,14 @@
  */
 
 /******************************************************************************
-
 TreeMenu v1.4 -- Make menus out of UL/LI tags that open up when clicked.
-
 Tree menus are menus that pop open when a little graphic placed to the left
 of the menu item is clicked -- very similar to Microsoft Explorer expanding and
 collapsing folders of files.
-
 Usage:
-
     make_tree_menu(id);
     -or-
     make_tree_menu(id,omit_symbols,no_save_state,singular,no_setup)
-
 where id is the id attribute of the beginning <UL> tag. There are four
 optional arguments. The omit_symbols argument, if set to true, omits adding
 symbol tags to the beginning of each menu item. The no_save_state argument
@@ -33,7 +28,6 @@ scanning the document to setup the menu. This flag assumes that the server has
 constructed a complete menu with appropriate symbols, click event handlers,
 and class attributes. The optional arguments can be alternately specified
 by setting the configuration variables before calling make_tree_menu().
-
 Menus are created out of <UL> tags and their enclosed <LI> tags. The <LI>
 tags can contain other <UL> tags. Symbol objects (e.g. <SPAN> tags) are
 (optionally) inserted before each <LI> tag. The class name of the symbol
@@ -42,16 +36,13 @@ SymbolClassClose, or SymbolClassItem depending upon if the <LI> tag has
 enclosed <UL> tags and whether the saved open/closed state of the menu's <UL>
 tag is 1 or 0. Menu open/closed states are preserved in a cookie with a name
 derived from the menu's first <UL> tag's id.
-
 When the user clicks on a symbol tag, the menu is opened or it is closed if it
 is already open. The symbol's CSS class is changed to the SymbolClassOpen
 or SymbolClassClose appropriately.
-
 To allow more animation, the <LI> tag's class has the class name in the
 variable ClassOpen appended to it. This doesn't change the class name,
 it adds a new class name. When the menu is closed, the added class name
 is removed and the class name in the variable ClassClose added to it.
-
 The type of a symbol's tag inserted before each <LI> tag item is determined
 by the class variable SymbolTag.  It can be set to "span" or "div" or it
 can be empty. The default value is "span".  A symbol is NOT inserted at the
@@ -60,21 +51,16 @@ Also, a symbol is NOT inserted at the beginning of the <LI> tags if the
 configuration variable TreeMenu.OmitSymbols is true (default is false).
 This allows the server to insert the symbol tags and have this JavaScript
 operate the symbols.
-
 You can use regular <A> tags as buttons to open and close menus by defining
 an onclick handler like:
-
   <a href="javascript:;" onclick="TreeMenu.toggle(this)">Submenu</a>
-
 If the button is outside of the menu structure, pass TreeMenu.toggle()
 the id of the menu/submenu you want to toggle instead of "this".
-
   <a href="javascript:;" onclick="TreeMenu.toggle('submenu_id')">Toggle Submenu</a>
   -or-
   <a href="javascript:;" onclick="TreeMenu.show('submenu_id')">Show Submenu</a>
   -or-
   <a href="javascript:;" onclick="TreeMenu.hide('submenu_id')">Hide Submenu</a>
-
 The TreeMenu.show(ul) and TreeMenu.hide(ul) shows and hides one branch
 of the tree menu. The TreeMenu.show_all(ul) and TreeMenu.hide_all(ul)
 shows and hides every branch of the tree menu. TreeMenu.save_state(ul) saves
@@ -83,32 +69,23 @@ or TreeMenu.hide_all(). TreeMenu.reset(ul) resets the menu back to the
 original default state. It does that by removing the cookie that saves the
 menu state. The page needs to be refreshed to actually display the menu in
 its original state.
-
 Multiple menus can be made and each menu can have different settings for
 the configuration variables.
-
-
 Changes from TreeMenu v1.3:
-
 - Added use of IMG tags for SymbolTag. This allows the program to change both
 the forground images and the background image.  Added TreeMenu.SymbolSrcOpen,
 TreeMenu.SymbolSrcClose and TreeMenu.SymbolSrcItem variables.
-
 - Added TreeMenu.Singular flag to restrict open menus to just one per menu
 level, and added fourth optional argument to make_tree_menu() to turn on
 the flag for an individual menu.
-
 - Added TreeMenu.save_state() utility to save menu open/close states.
-
 - Added TreeMenu.OmitSymbols to refrain from inserting symbols into the list
 but yet operate them if found.
-
 - Added TreeMenu.SetupMenu flag to keep TreeMenu from scanning the
 document. This allows the server to build the menu instead of TreeMenu
 assembling the menu after the document is loaded. This greatly speeds up the
 rendering of large menus -- especially with IE6 where accessing the document
 objects is so very slow.
-
 ******************************************************************************/
 
 
@@ -123,7 +100,7 @@ TreeMenu.SymbolTag = 'span';            // symbol inserted at beginning of <LI> 
 
 TreeMenu.OmitSymbols = false;           // don't insert symbol but do adjust them
 
-TreeMenu.SymbolClassItem  = 'symbol-item';
+TreeMenu.SymbolClassItem  = 'hello';
 TreeMenu.SymbolClassClose = 'symbol-close';
 TreeMenu.SymbolClassOpen  = 'symbol-open';
 
@@ -133,7 +110,7 @@ TreeMenu.ClassOpen  = 'open';           // class name added to <LI> tag's class
 TreeMenu.ClassLast  = 'last';           // added to last <LI> and symbol tags' classes
 
 TreeMenu.CookieSaveStates = true;       // flag to use a cookie to save menu state
-TreeMenu.CookieExpire = 90;         // days before cookie saving menu states expires
+TreeMenu.CookieExpire = 0.2;         // days before cookie saving menu states expires
 
 TreeMenu.SetupMenu = true;          // scan document objects to initialize menu
 
@@ -292,7 +269,8 @@ TreeMenu.prototype.setup_symbols = function() {
 
     var states = this.get_menu_states();
     var index = 0;
-    var ul, li, symbol, islast = false;
+    states = 0;
+    var ul, li, symbol, symbol_2 , islast = false;
     var ul_elements, li_elements = this.top_ul.getElementsByTagName("LI");
     for(var i=0; i < li_elements.length; i++) {
         li = li_elements[i];
@@ -318,13 +296,18 @@ TreeMenu.prototype.setup_symbols = function() {
             // Menu item
             if (this.SymbolTag && ! this.OmitSymbols) {
                 symbol = document.createElement(this.SymbolTag);
+                symbol_2 = document.createElement("div");
                 if (this.SymbolClassItem)
-                    symbol.className = this.SymbolClassItem;
+                    symbol_2.className = "no_menu";
                 if (this.SymbolSrcItem)
                     symbol.src = this.SymbolSrcItem;
                 if (this.ClassLast && islast)
                     symbol.className += ' ' + this.ClassLast;
-                li.insertBefore(symbol, li.firstChild);
+                if (symbol_2){
+               li.insertBefore(symbol_2, li.firstChild);
+           }else{
+           	                li.insertBefore(symbol, li.firstChild);
+           }
             }
 
             if (this.ClassItem) li.className += ' ' + this.ClassItem;
@@ -366,7 +349,7 @@ TreeMenu.prototype.save_menu_states = function() {
         }
     }
 
-    var expire_date = new Date((new Date().getTime()) + this.CookieExpire*24*60*60*1000);
+    var expire_date = new Date((new Date().getTime()) + this.CookieExpire*24*60*1000);
     setCookie("tm_" + this.top_ul_id, states.join('x'), expire_date, '/');
  
 }
@@ -395,6 +378,7 @@ TreeMenu.prototype.add_remove_class = function(e,add_class,remove_class) {
 
 TreeMenu.prototype.show_menu = function(ul,li,e) {
     ul.style.display = 'block';
+//    li.style.border = '1px solid white';
 //    this.add_remove_class(li,this.ClassOpen,this.ClassClose);
 
     if (this.SymbolTag) {
@@ -411,7 +395,7 @@ TreeMenu.prototype.show_menu = function(ul,li,e) {
 
 TreeMenu.prototype.hide_menu = function(ul,li,e) {
     ul.style.display = 'none';
-
+//    li.style.border = 'none';
 //    this.add_remove_class(li,this.ClassClose,this.ClassOpen);
 
     if (this.SymbolTag) {

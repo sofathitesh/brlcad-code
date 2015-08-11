@@ -129,7 +129,12 @@ function brlcad_scripts() {
 
 	wp_enqueue_style( 'do-style', get_template_directory_uri() . '/css/brlcad.css' );
 
+	wp_enqueue_style( 'google-search', get_template_directory_uri() . '/css/google-search.css' );
+
 	wp_enqueue_style( 'brlcad-style', get_stylesheet_uri() );
+
+
+//	wp_enqueue_script( 'brlcad-ui','http://code.jquery.com/ui/1.11.4/jquery-ui.js', array('jquery'), '20131225', true );
 
 	wp_enqueue_script( 'brlcad-main', get_template_directory_uri() . '/js/main.js', array('jquery'), '20131224', true );
 
@@ -217,14 +222,21 @@ function main_menu()
 {
 $file = fopen('../../articles/en/main_menu.html','r');
 $fr = fread($file, filesize('../../articles/en/main_menu.html'));
-
+$_COOKIE['main_menu'] = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $url = explode("/",$_COOKIE["main_menu"]);
 $get_url_size = sizeof($url);
-//echo '"../../'.$url[$get_url_size-3].'/'.$url[$get_url_size-2].'/'.$url[$get_url_size-1].'"';
 $original = 'href="../../'.$url[$get_url_size-3].'/'.$url[$get_url_size-2].'/'.$url[$get_url_size-1].'"';
 $replaced = 'id="unique" href="../../'.$url[$get_url_size-3].'/'.$url[$get_url_size-2].'/'.$url[$get_url_size-1].'"';
 $fr =str_replace($original, $replaced, $fr);
-$fr =str_replace("../xxx.php", "#", $fr);
+$fr =str_replace("../x.php","#" , $fr);
+$fr =str_replace("../xx.php","##" , $fr);
+$fr =str_replace("../xxx.php","###" , $fr);
+$fr =str_replace("../xxxx.php","####" , $fr);
+$fr =str_replace("../xxxxx.php","#####" , $fr);
+$fr =str_replace("../xxxxxx.php","######" , $fr);
+$fr =str_replace("../xxxxxxx.php","#######" , $fr);
+$fr =str_replace("../xxxxxxxx.php","########" , $fr);
+$fr =str_replace("../xxxxxxxxx.php","#########" , $fr);
 $fr = str_replace("<a","<a onclick='TreeMenu.toggle(this)'", $fr);
 		echo $fr;
 }
@@ -329,7 +341,8 @@ error_reporting(0);
 $dir = explode("/", $_SERVER['SCRIPT_FILENAME']);
 $length = sizeof($dir);
 $dir_open = scandir("../../".$dir[$length-3]);
-echo "<table>";
+$count = 0;
+echo "<div id='brlcad_language'><table style=''>";
 foreach ($dir_open as $dir_languages) {
 	if(!is_dir($dir_languages))	
 		$file_search = scandir("../../".$dir[$length-3]."/".$dir_languages);
@@ -339,23 +352,32 @@ foreach ($dir_open as $dir_languages) {
 				$get_first_word_of_filename = explode("_",$dir[$length-1]);
  				if(preg_match("/".str_replace(".php","",$get_first_word_of_filename[0])."/", $files))
 				{
-					echo "<tr><td style='width:10%'><a href='".home_url()."/".$dir[$length-3]."/".$dir_languages."/".$files."'>
-					<img src='".get_template_directory_uri(__FILE__)."/img/16/".$languages[$dir_languages]."' title='".$dir_languages."'></a></td><td><a href='".home_url()."/".$dir[$length-3]."/".$dir_languages."/".$files."'>".$languages_with_fullname[$dir_languages]."</a></td>
+					if($count % 2 != 0 )
+					{
+					echo "<tr style='border:1px solid #c9c9c9'><td><a href='".home_url()."/".$dir[$length-3]."/".$dir_languages."/".$files."'>
+					<img style='padding-right:5%' src='".get_template_directory_uri(__FILE__)."/img/16/".$languages[$dir_languages]."' title='".$dir_languages."'></a><a href='".home_url()."/".$dir[$length-3]."/".$dir_languages."/".$files."'>".$languages_with_fullname[$dir_languages]."</a></td>
 	</tr>";
+}else
+{
+						echo "<tr style='border:1px solid black'><td style='border:1px solid #c9c9c9;'><a href='".home_url()."/".$dir[$length-3]."/".$dir_languages."/".$files."'>
+					<img style='padding-right:5%' src='".get_template_directory_uri(__FILE__)."/img/16/".$languages[$dir_languages]."' title='".$dir_languages."'></a><a href='".home_url()."/".$dir[$length-3]."/".$dir_languages."/".$files."'>".$languages_with_fullname[$dir_languages]."</a></td>
+	</tr>";
+}
 					break;
 				}
 			}
+			$count++;
 		}
 	}
-echo "</table></div>";
+echo "</table></div></div>";
 }
 endif;
 
 if(!function_exists(google_languages)):
 function google_languages(){
-	echo "<br><table style='width:100%'><tr><td style='width:70%'><a href='#' id='menu'>Additional Languages</a></td><td>	
-	<img src='".get_template_directory_uri()."/img/icons/downn.png' width='30%' id='down'>
-	<img src='".get_template_directory_uri()."/img/icons/up.png' width='30%' id='up'></td></tr></table>";
+	echo "<br><table><tr><td><a href='#' id='menu'>Additional Languages</a></td><td>	
+	<img src='".get_template_directory_uri()."/img/icons/downn.png' width='20px' id='down'>
+	<img src='".get_template_directory_uri()."/img/icons/up.png' width='20px' id='up'></td></tr></table>";
 ?> 
 <?php echo do_shortcode('[google-translator]'); ?>
  <?php

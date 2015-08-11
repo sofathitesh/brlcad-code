@@ -104,7 +104,7 @@ $("#msg").hide(10000);
 });
 $("#del").click(function(){
 firepadRef.remove();
-window.location.href="<?php echo $_GET['url'];?>";
+window.location.href="../../../index.php";
 });
 setInterval(function(){
 	location.reload(); 

@@ -1,40 +1,31 @@
-.menu ul
-  {
-  margin:0px;
-  padding:0px;
-  }
-.menu li
-  {
-  margin:0px 0px 0px 5px;
-  padding:0px;
-  list-style-type:none;
-  text-align:left;
-  font-size:14px;
-  font-weight: bold;
-  }
-
-/* Submenu styles */
-.menu ul ul 
-  {  }
-.menu li li
-  { margin:0px 0px 0px 16px; }
-
-/* Symbol styles */
+.menu{border-radius:10px;}
+.menu ul{margin:0px;padding:0px;overflow:hidden;background:#6E6969;list-style: none}
+.menu li{list-style: none}
+.menu li > a {list-style-type:none;text-align:left;font-size:16px;font-weight:bold;display: block; padding: 2%; width:100%;color:#A9A9A9;}
+.menu li > a:hover {}
+.menu li > ul li a {list-style-type:none;text-align:left;font-size:14px;font-weight:bold;color:#81848E}
+.menu li > ul li ul li a {list-style-type:none;text-align:left;font-size:12px;font-weight:bold;border-right: solid 1px #c9c9c9;color:#808086}
+.menu li > ul li ul li ul li a {list-style-type:none;font-size:10px;font-weight:bold;color:#808089}
+.menu li ul{background:#C7C7C7;} 
+.menu li ul li ul{background:#E3E3E3;border-top:solid 1px #c9c9c9;} 
+.menu li ul li ul li {border-right:solid 0.5px #c9c9c9;}
+.menu li ul li ul li ul{background:#c9c9c9;}
+.menu li ul li ul li ul li ul{background:#BDBDBD;} 
 .menu .symbol-item,
 .menu .symbol-open,
-.menu .symbol-close
-  {
-  float:left;
-  width:16px;
-  margin-top:1.5%;  
-  height:1em;
-  background-position:left center;
-  background-repeat:no-repeat;
-  }
-.menu .symbol-item  { background-image:url(../img/page.png);} 
-.menu .symbol-open  { background-image:url(../img/minus.png); }
-.menu .symbol-close { background-image:url(../img/plus.png);}
-
-/* Menu line styles */
-.menu li.open  { font-weight:bold; }
-.menu li.close { font-weight:bold; }
+.menu .symbol-close{float:left;width:16px;margin-top:3%;margin-left:2.5%; height:1em;background-position:left center;background-repeat:no-repeat;}
+.menu li > .symbol-close{margin-left:2.5%;}
+.menu li > ul li .symbol-close{margin-left:5.5%;}
+.menu li > ul li .symbol-open{margin-left:5.5%;}
+.menu li > ul li a {padding-left:6.5%;}
+.menu li > ul li ul li .symbol-close{margin-left:7.5%;}
+.menu li > ul li ul li .symbol-open{margin-left:7.5%;}
+.menu li > ul li ul li a {padding-left:9.5%;}
+.menu li > ul li ul li ul li .symbol-close{margin-left:11.5%;}
+.menu li > ul li ul li ul li .symbol-open{margin-left:11.5%;}
+.menu li > ul li ul li ul li a {padding-left:13.5%;}
+.menu .no_menu{background-image:url(../img/page.png);width:100%;}
+.menu .symbol-open{background-image:url(../img/minus.png);}
+.menu .symbol-close{background-image:url(../img/plus.png);}
+.menu li.open{font-weight:bold;}
+.menu li.close{font-weight:bold;}

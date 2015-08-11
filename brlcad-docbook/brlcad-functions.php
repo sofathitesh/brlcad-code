@@ -322,28 +322,17 @@ function login_preview()
 function search_document()
 {
 	?>
-<script>
-  (function() {
-    var cx = '011789835326516392534:qmtejlm4yda';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-        '//cse.google.com/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  })();
-</script>
-<gcse:search></gcse:search>
-	<form action="<?php echo home_url();?>/wp-content/plugins/brlcad-docbook/search_document2.php" method="post">
+
+	<form  action="<?php echo home_url();?>/wp-content/plugins/brlcad-docbook/search_document2.php" method="get" id="searchform" id="searchbox_011789835326516392534:qmtejlm4yda">
+<input value="011789835326516392534:qmtejlm4yda" name="cx" type="hidden"/>
+<input value="FORID:11" name="cof" type="hidden"/>
 <div id="searchbox">
 
-	<input list="document" name="document" placeholder="Search Documents" type="search">
+<div style="padding:5%;width:100%;padding-left:12%;float:left;font-size:14px;"><a href="<?php echo home_url();?>/index.php/?page_id=216"><h5><img src="<?php echo home_url();?>/wp-content/themes/brlcad/img/icons/home.png" align="left">BRL-CAD Reference Manual</h5></div></a><br>
+	<input placeholder="Search docs" type="search" name="s" id="s" onfocus="defaultInput(this)" onblur="clearInput(this)">
     </div>
-</form>
-
 <?php
-$document_folder = array();
+/*$document_folder = array();
 array_push($document_folder, "articles");
 array_push($document_folder, "books");
 array_push($document_folder, "lessons");
@@ -383,7 +372,7 @@ foreach ($document_folder as $directory) {
     }
 }
 echo "</datalist>";
-
+*/
 }
 
 

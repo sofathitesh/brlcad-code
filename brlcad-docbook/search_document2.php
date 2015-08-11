@@ -20,7 +20,6 @@ array_push($document_folder, "specifications");
 echo " <h1> Your Searched Documents are:-</h1>";
 echo "<ol>";
 global $count;
-
 if($_POST['document'])
 {
 foreach ($document_folder as $directory) {
@@ -44,9 +43,9 @@ foreach ($document_folder as $directory) {
                 	{
                 		$remove_extension = explode(".", $filename);
                         if(preg_match("/^".$_POST['document']."/",$remove_extension[0]))
-                        {
-                             $count="ok";
-                            echo "<li><a href='".home_url()."/".$directory."/".$files_directory."/".$remove_extension[0].".php'>".$remove_extension[0]."</a></li>";
+          	        {
+			    $count="ok";
+                            echo "<li><a href='".home_url()."/".$directory."/".$files_directory."/".$remove_extension[0].".php'>".$remove_extension[0]." (".$directory.")</a></li>";
                         }
                 	}
                 }
@@ -57,14 +56,11 @@ foreach ($document_folder as $directory) {
 }
 }
 echo "</ol>";
-if($count == "ok")
-{
-
+if( $count =="ok"){ 
 }else
-{
-    echo "<h1>Nothing Found</h1>";
+{ 
+echo "<h1> Nothing Found</h3>";
 }
-
 ?>	
 </div>
 </main>
