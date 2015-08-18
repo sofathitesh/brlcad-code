@@ -3,7 +3,6 @@
 * Description: The template for documentation.
 */
 get_header(); ?>
-	<div id="content-side">
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 		<div id="manual-box">
@@ -17,5 +16,5 @@ get_header(); ?>
 		</div>
 		</main><!-- #main -->
 		</div>
-	</div><!-- #primary -->
+
 <?php get_footer();?>

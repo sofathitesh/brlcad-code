@@ -3,7 +3,7 @@
 @media only screen and (max-width:1020px){.row{padding:0 1em;}
 #masthead{}
 div#content{}
-header.site-header{background:#222;width:100%;height:70px;position:fixed;z-index:200;}
+header.site-header{background:#222;width:100%;height:70px;position:relative;z-index:200;}
 div.menu-toggle, div.menu-toggle:hover{cursor:hand;width:50px;height:50px;top:10px;right:10px;position:fixed;z-index:200;background:#333 url('../img/icons/nav.png') no-repeat center center;}
 .main-navigation ul{display:block !important;}
 nav#site-navigation{width:auto;position:relative;top:70px;right:10px;display:none;}

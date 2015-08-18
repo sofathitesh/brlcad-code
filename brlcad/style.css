@@ -12,7 +12,7 @@ body{font-family:'Open Sans', sans-serif;background-color:#faf9f9;color:#222;}
 body.page-template-template-center-php{background:#333;color:#fefefe;}
 div.site-content{padding:1.8em 0 2em 0;min-height:100%;position:relative;}
 body.home div.site-content{padding:0;}
-#manual-box{margin:0 auto;background:black;max-width:100%;width:30%;height:250px;border:1px solid #ee3b5b;border-radius:10px;}
+#manual-box{margin:0 auto;background:black;max-width:100%;width:40%;border:1px solid #ee3b5b;border-radius:10px;}
 #manual-box h1{padding:2% 2% 2% 2%;}
 #manual-box h5{padding:0 2% 2% 2%;color:#ee3b5b;}
 #manual-box a{padding:2%;text-decoration:underline;color:#ee3b5b;}
@@ -34,7 +34,7 @@ h1#logo{display:inline-block;}
 a#logo{background:url("img/logo.png") no-repeat center center;width:53px;height:68px;margin-right:25px;margin-left:25px;}
 ul.nav-menu li:first-child a,
 li.page_item a,
-li.menu-item a{color:#ececec;border-bottom:2px solid #222;padding:1.5em 2.6em 1.1em 2.6em;display:inline-block;font-size:1em;}
+li.menu-item a{color:white;border-bottom:2px solid #222;padding:1.5em 2.6em 1.1em 2.6em;display:inline-block;font-size:1em;}
 ul.nav-menu li:first-child:hover a,
 li.page_item:hover a,
 li.current_page_item a,
@@ -63,7 +63,7 @@ img.about-last{position:absolute;right:0;opacity:0;transition:opacity 1.8s ease-
 div.about-images:hover img.about-first{opacity:0;}
 div.about-images:hover img.about-last{opacity:1;}
 #searchbox{width:100%;padding:5%;background:black;	border-top-left-radius:10px;border-top-right-radius:10px;}
-#searchbox input{width:90%;height:18px;padding:5%;background:#FAF9F9;border-radius: 20px;}
+#searchbox input{width:75%;height:18px;padding-top:5%;padding-bottom:5%;background:#FAF9F9;border-radius: 20px;}
 div.download-links{min-height:30em;}
 ul.download{margin:0;}
 ul.download div.columns{padding-right:0.2375em;padding-left:0;}
@@ -98,7 +98,7 @@ body.single-post div.nav-links div.columns{padding:0;}
 footer#site-footer{background-color:#222;color:#fefefe;padding:3em 0;}
 footer#site-footer .widget-title{margin-bottom:0.5em;color:#888;}
 footer#site-footer .widget li{list-style-type:none;}
-input[type="search"]{background:none;color:black;border:2px solid #666;margin:0 auto;padding:0.2em 0.2em;font-size:1em;max-width:93%;}
+input[type="search"]{background:none;color:black;border:2px solid #666;margin:0 auto;padding-right:20px;font-size:1em;max-width:93%;}
 input[type="search"]:focus{color:black;background:none;border:2px solid #fefefe;transition:all 0.5s;}
 input::-webkit-input-placeholder{color:#777;}
 input:-moz-placeholder{color:black;}

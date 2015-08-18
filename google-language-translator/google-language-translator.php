@@ -566,10 +566,10 @@ class google_language_translator {
                           if ( isset ( $get_flag_choices['flag-'.$language_code.''] ) ) {				  
 			    if($count % 2 == 0)
                 {
-                $str.="<tr><td><a title='".$language_name."' class='notranslate flag ".$language_code."'></a></td><td><a class='translate flag ".$language_code."'>".$this->languages_array_nagtive_name[$language_code]."</a> </td></tr>";
+                $str.="<tr><td style='width:10%'><a title='".$language_name."' class='notranslate flag ".$language_code."'></a></td><td><a class='translate flag ".$language_code."'>".$this->languages_array_nagtive_name[$language_code]."</a> </td></tr>";
             }else
             {
-                $str.="<tr><td style='width:15%;border-style:solid;border-top:thin double #c9c9c9;border-left:thin double #c9c9c9;border-bottom:thin double #c9c9c9;'><a title='".$language_name."' class='notranslate flag ".$language_code."'></a></td><td style='border-style:solid;border-top:thin double #c9c9c9;border-right:thin double #c9c9c9;border-bottom:thin double #c9c9c9;'><a class='translate flag ".$language_code."'>".$this->languages_array_nagtive_name[$language_code]."</a> </td></tr>";                
+                $str.="<tr><td><a title='".$language_name."' class='notranslate flag ".$language_code."'></a></td><td><a class='translate flag ".$language_code."'>".$this->languages_array_nagtive_name[$language_code]."</a> </td></tr>";                
             }
 		           }
 	                 } //$key

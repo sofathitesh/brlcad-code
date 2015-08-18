@@ -182,13 +182,13 @@ require get_template_directory() . '/inc/jetpack.php';
 function edit(){
 	$url = explode("/", $_SERVER['SCRIPT_FILENAME']);
 	$length = sizeof($url);
-	$call_back_url = home_url()."/".$url[$length-3]."/".$url[$length-2]."/".$url[$length-1];
+	$call_back_url = home_url()."/".$url[$length-3]."/".$url[$length-2]."/".$url[$length-1]."?o";
 	if($_GET['mode'])
 	{
-		wp_redirect(home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".urlencode($_SERVER['SCRIPT_FILENAME']));
+		wp_redirect(home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".urlencode($_SERVER['SCRIPT_FILENAME'])."&url=http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']."?o");
 	}else
 	{
-	echo "<a href='".home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".urlencode($_SERVER['SCRIPT_FILENAME'])."&url=".$call_back_url."'>
+	echo "<a href='".home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".urlencode($_SERVER['SCRIPT_FILENAME'])."&url=".$call_back_url."?o'>
 	<input type='button' value='Edit'></a><br>";
 }
 }
@@ -198,7 +198,7 @@ function without_login_edit(){
 	$call_back_url = home_url()."/".$url[$length-3]."/".$url[$length-2]."/".$url[$length-1];
 	if($_GET['mode'])
 	{
-		wp_redirect(home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".urlencode($_SERVER['SCRIPT_FILENAME']));
+		wp_redirect(home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".urlencode($_SERVER['SCRIPT_FILENAME'])."&url=http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']."?o");
 	}else
 	{
 		if(array_search("presentations", $url))
@@ -228,6 +228,7 @@ $get_url_size = sizeof($url);
 $original = 'href="../../'.$url[$get_url_size-3].'/'.$url[$get_url_size-2].'/'.$url[$get_url_size-1].'"';
 $replaced = 'id="unique" href="../../'.$url[$get_url_size-3].'/'.$url[$get_url_size-2].'/'.$url[$get_url_size-1].'"';
 $fr =str_replace($original, $replaced, $fr);
+$fr =str_replace('class="menu"','class="menuu"' , $fr);
 $fr =str_replace("../x.php","#" , $fr);
 $fr =str_replace("../xx.php","##" , $fr);
 $fr =str_replace("../xxx.php","###" , $fr);
@@ -359,7 +360,7 @@ foreach ($dir_open as $dir_languages) {
 	</tr>";
 }else
 {
-						echo "<tr style='border:1px solid black'><td style='border:1px solid #c9c9c9;'><a href='".home_url()."/".$dir[$length-3]."/".$dir_languages."/".$files."'>
+						echo "<tr style='border:1px solid black'><td><a href='".home_url()."/".$dir[$length-3]."/".$dir_languages."/".$files."'>
 					<img style='padding-right:5%' src='".get_template_directory_uri(__FILE__)."/img/16/".$languages[$dir_languages]."' title='".$dir_languages."'></a><a href='".home_url()."/".$dir[$length-3]."/".$dir_languages."/".$files."'>".$languages_with_fullname[$dir_languages]."</a></td>
 	</tr>";
 }
@@ -389,7 +390,7 @@ function google_languages(){
 endif;
 if(!function_exists(up_scroll)):
 function up_scroll(){
-	echo "<img src='".get_template_directory_uri()."/img/icons/scroll.png' width='50%' title='Move to top'>";
+//	echo "<img src='".get_template_directory_uri()."/img/icons/scroll.png' width='50%' title='Move to top'>";
 }
 endif;
 

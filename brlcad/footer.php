@@ -10,9 +10,9 @@
 	</div><!-- #content -->
 
 	<footer id="site-footer">
-		<div class="row">
+
+		<div class="row" style="margin-top:5%">
 			<aside id="search" class="widget widget_search">
-					<?php get_search_form(); ?>
 			</aside>
 		</div>
 		<?php if(is_active_sidebar('footer-sidebar-left')): ?>

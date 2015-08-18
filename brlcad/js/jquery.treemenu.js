@@ -164,11 +164,13 @@ TreeMenu.toggle = function(e) {
     var expire_date = new Date((new Date().getTime()) - 1000);
     document.cookie = "main_menu="+e+";"+expire_date+";path=/";
     if (ul.style.display == "block") {
+        li.style.color="#808086";
         m.hide_menu(ul,li,e);
     }
     else {
         if (m.Singular) m.hide_menus_except(li);
         m.show_menu(ul,li,e);
+
     }
 
     m.save_menu_states();
@@ -302,7 +304,7 @@ TreeMenu.prototype.setup_symbols = function() {
                 if (this.SymbolSrcItem)
                     symbol.src = this.SymbolSrcItem;
                 if (this.ClassLast && islast)
-                    symbol.className += ' ' + this.ClassLast;
+                    symbol.className = this.ClassLast;
                 if (symbol_2){
                li.insertBefore(symbol_2, li.firstChild);
            }else{
@@ -310,10 +312,10 @@ TreeMenu.prototype.setup_symbols = function() {
            }
             }
 
-            if (this.ClassItem) li.className += ' ' + this.ClassItem;
+            if (this.ClassItem) li.className =  this.ClassItem;
         }
 
-        if (islast) li.className += ' ' + this.ClassLast;
+        if (islast) li.className =  this.ClassLast;
     }
 
 }
