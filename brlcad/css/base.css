@@ -48,6 +48,7 @@ ul{list-style:disc;}
 ol{list-style:decimal;}
 li > ul,
 li > ol{margin-bottom:0;margin-left:1.5em;}
+.
 dt{font-weight:bold;}
 dd{margin:0 1.5em 1.5em;}
 b, strong{font-weight:bold;}
@@ -75,7 +76,7 @@ textarea{font-size:100%;margin:0;vertical-align:baseline;vertical-align:middle;}
 button,
 input[type="button"],
 input[type="reset"],
-input[type="submit"]{border:1px solid #ccc;border-color:#ccc #ccc #bbb #ccc;border-radius:3px;background:#e6e6e6;box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 15px 17px rgba(255, 255, 255, 0.5), inset 0 -5px 12px rgba(0, 0, 0, 0.05);color:rgba(0, 0, 0, .8);cursor:pointer;-webkit-appearance:button;font-size:12px;font-size:1.2rem;line-height:1;padding:.6em 1em .4em;text-shadow:0 1px 0 rgba(255, 255, 255, 0.8);}
+input[type="submit"]{border:1px solid #ccc;border-radius:3px;background:#D91B5B;color:white;margin:5%;cursor:pointer;-webkit-appearance:button;font-size:12px;font-size:1.2rem;line-height:1;padding:.6em 1em .4em;text-shadow:0 1px 0 rgba(255, 255, 255, 0.8);}
 button:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,

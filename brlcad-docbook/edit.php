@@ -43,7 +43,7 @@ if (isset($_GET['article'])) {
 	$filename_in_xml = str_replace("php", "xml",$filename[$length-1]);
 	$editable_file = str_replace("/", "123", $file_according_category);
 	if (array_search("man1", $filename) or array_search("man3", $filename) or array_search("man5", $filename) or array_search("mann", $filename)){
-		$editable_file = "123system".$editable_file;
+		$editable_file = "system123".$editable_file;
 	}
 	$editable_file  = str_replace("php", "xml", $editable_file);
 	xml_edit();
@@ -62,6 +62,7 @@ if (isset($_GET['method'])) {
 	global $current_user;
 	get_currentuserinfo();
 	$editable_file = $current_user->user_login."123".$_POST['s1']."123".$_POST['s2']."123".$_POST['t1'].".xml";
+	$editable_file = str_replace("/", "123", $editable_file);
 	$url_with_hash_key = home_url()."/wp-content/plugins/brlcad-docbook/new_document.php?new_document=".$editable_file."&url=".$_GET['url']."#".md5($_POST['t1']);
 	wp_redirect($url_with_hash_key);
 }

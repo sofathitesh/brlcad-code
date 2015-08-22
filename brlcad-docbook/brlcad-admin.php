@@ -136,13 +136,11 @@ if (isset($_GET['pv'])) {
     $pn =20;
 }
 echo "<table class='wp-list-table widefat fixed striped posts'>";
-echo "<tr class='inline-edit-row inline-edit-row-post inline-edit-post quick-edit-row quick-edit-row-post inline-edit-post'><th>File name</th><th>Category</th><th>Option</th><th>Delete</th></tr>";
+echo "<tr class='inline-edit-row inline-edit-row-post inline-edit-post quick-edit-row quick-edit-row-post inline-edit-post'><th>File name</th><th>Category</th><th>Option</th></tr>";
 for ($pv; $pv<$pn;$pv++) {
     if (isset($files_array[$pv])) {
 	echo "<form action='".home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".str_replace("system/","",brlcad_source.$directory_name[$pv])."/".$languages[$pv]."/".str_replace("xml","php",$files_array[$pv])."&url=".$url."' method='post'>";
-	echo "<tr><td>".$files_array[$pv]."</td><td>".$directory_name[$pv]."</td><td><input type='submit' class='button button-primary' value='Edit'></td></form>
-       <form action='".home_url()."/wp-admin/admin.php?page=delete&article=".str_replace("system/","",brlcad_source.$directory_name[$pv])."/".$languages[$pv]."/".$files_array[$pv]."' method='post'> <td>
-       <input type='submit' class='button button-primary' value='Delete'></td></form></tr>";
+	echo "<tr><td>".$files_array[$pv]."</td><td>".$directory_name[$pv]."</td><td><input type='submit' class='button button-primary' value='Edit'></td></form></tr>";
     }
 }
 echo "</table>";

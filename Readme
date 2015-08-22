@@ -1,36 +1,54 @@
-1) Download the code
+## Description about project
 
-2) Untar the files 
+BRL-CAD has more than a million words of documentation (thousands of pages) in a variety of formats. We have a long-term goal to consolidate as much as possible into the Docbook format so that it can be more directly managed by our revision control system and integrated with the source code. At the same time, we have a user-editable pages that is really easy for users and developers a like to keep up to date. The two, however, are not immediately compatible with one another. Data is not shared or synchronized.
 
-3) Copy the brlcad-docbook  folder to your wordpress plugin directroy ex:- wordpress/wp-content/plugins/
+The main goal of this project would be to synchronize the two so that edits to either are reflected in the other without loss of data. One of the main challenges is how to retain the more expressive Docbook markup within Website so that edits via the pages are not "dumbed down" to the more simple Mediawiki syntax.
 
-4) Copy the brlcad folder to Theme directroy of wordpress ex:- wordpress/wp-content/themes/
+The initial thoughts on our end are to implement a wordpresss Plugin that understands how to translate to/from the Docbook format that faithfully preserves all Docbook tagging. You're welcome to suggest another approach.
 
-5) Download the brlcad code form my svn repo using this command
+A great starting point for this project are our existing command sets for BRL-CAD and MGED (our main geometry editor). They respectively constitute approximately 400 and 700 commands that have a page of documentation each.
 
-svn checkout http://svn.code.sf.net/u/hiteshsofat/brlcad/ mybrlcadcode
+## Requirements
 
-6) Copy the copy_document.sh script file to brlcad source code mybrlcadcode/brlcad/trunk/
+1) Install Apache server
+2) Install window or Linux
+3) Install Mysql Database
+4) Install Wordpress
+
+## Setup Project on your server
+
+
+1) Download the code using "git clone command"
+
+2) Copy these plugins "brlcad-docbook" , "google_Language_Translator" folder to your wordpress plugin directroy ex:- wordpress/wp-content/plugins/
+
+3) Copy the "brlcad" folder to Theme directroy of wordpress ex:- wordpress/wp-content/themes/
+
+4) Download the brlcad code using this command
+
+svn checkout https://svn.code.sf.net/p/brlcad/code/brlcad/trunk brlcad_resource
+
+5) Copy the copy_document.sh script file to brlcad resource code "brlcad_resource"
 
 
 
-Now for activate the theme and plugin
+## Now for activating the theme and plugin
 
 
 1) Open your wordpress account as wordpress admin
 
-2) Go in plugin section and click on active brlcad-docbook plugin
+2) Go in plugin section and click on active brlcad-docbook, google_Language_Translator plugin
 
 3) Go in appearance and then click on theme.
 
-4) Now click on brlcad  theme active button so your theme is activate.
+4) Now click on brlcad theme active button so then your theme is activated.
 
 
-Now for plugin settings
+## Now for plugin settings
 
-1) Go in plugin directory
+1) Go to plugin directory
 
-wordpress/wp-content/plugins/brlcad-docbook
+"wordpress/wp-content/plugins/brlcad-docbook"
 
 2) open config.php file
 
@@ -38,10 +56,10 @@ wordpress/wp-content/plugins/brlcad-docbook
 
 4) set your review directory path (which are placed in wordpress folder if there is not placed then make one directory there and set the name of directory is review)
 
-5) Set the you wordpress directory name like :- wordpress, etc.
+5) Set your "new_document" directory path which are placed in wordpress root. ex:- wordpress/new_document/ 
 
 
-Now for copy_document.sh script settings.
+## Now for copy_document.sh script settings.
 
 1) Copy the script and place in brlcad source folder ex:- mybrlcadsource/brlcad/trunk/
 
@@ -52,11 +70,12 @@ Now for copy_document.sh script settings.
 4) set the wordpress directory path
 
 
-How to run the project
+## How to run the project
 
-1) gave the 755 permission to copy_document.sh file
+1) give appropriate permissions to copy_document.sh file using: chmod 755 copy_document.sh
 2) run ./copy_document.sh
 3) open you browser and type link like:-  
 
-servername/wordpress_folder_name/articles/en/about.php
+http://servername/wordpress_folder_name/articles/en/about.php
 
+Here servername can be replaced with localhost if you are trying to run the project on your own computer.

@@ -29,14 +29,14 @@ Url:hiteshkumarsofat.wordpress.com
 *
 */
 /**
-* This file contains the all function which are used for wordpress integration as well as docbook work
-* Include the header files for using different functions like brlcad-functions.php for read & write the data in files Search the files from   directories so I am using this files for this purpose.
-* Next files is stroe the configurations settings  for plugin and brlcad resources
-* Next header files stroe the function for new document read and write
+* @details This file contains the all function which are used for wordpress integration as well as docbook work
+ Include the header files for using different functions like brlcad-functions.php for read & write the data in files Search the files from   directories so I am using this files for this purpose.
+ Next files is stroe the configurations settings  for plugin and brlcad resources
+ Next header files stroe the function for new document read and write
 *
 * @file
 * @ingroup Plugins
-* @author Hitesh Sofat
+* @author Hitesh Sofat (Nouhra)
 */ 
 
 ini_set('default_charset', 'utf-8');
@@ -90,9 +90,9 @@ function review()
 	$length = sizeof($get_real_file);
 	$real_name = $get_real_file[$length-1];
 	if (array_search("man1", $get_real_file) OR array_search("man3", $get_real_file) OR array_search("man5", $get_real_file) OR array_search("mann", $get_real_file)) {
-		$real_file_with_path = $get_real_file[1]."/".$get_real_file[2]."/".$get_real_file[3]."/".$get_real_file[4];
+		$real_file_with_path = $get_real_file[0]."/".$get_real_file[1]."/".$get_real_file[2]."/".$get_real_file[3];
 	} else {
-		$real_file_with_path = $get_real_file[1]."/".$get_real_file[2]."/".$get_real_file[3];			
+		$real_file_with_path = $get_real_file[0]."/".$get_real_file[1]."/".$get_real_file[2];			
 	}
 	$file = fopen(review_queue_directory.$_GET['newarticles'], "r");
 	$data = fread($file, filesize(review_queue_directory.$_GET['newarticles']));
@@ -124,19 +124,19 @@ function review_edit()
     $length = sizeof($get_real_file);
     $real_name = $get_real_file[$length-1];
     if (array_search("man1", $get_real_file) OR array_search("man3", $get_real_file) OR array_search("man5", $get_real_file) OR array_search("mann", $get_real_file)) {
-	$real_file_with_path = $get_real_file[1]."/".$get_real_file[2]."/".$get_real_file[3]."/".$get_real_file[4];
+	$real_file_with_path = $get_real_file[0]."/".$get_real_file[1]."/".$get_real_file[2]."/".$get_real_file[3];
     } else {
-	$real_file_with_path = $get_real_file[1]."/".$get_real_file[2]."/".$get_real_file[3];			
+	$real_file_with_path = $get_real_file[0]."/".$get_real_file[1]."/".$get_real_file[2];			
     }
     if ($_GET['dif'] == 'yes') {	
 	if (array_search("man1", $get_real_file) OR array_search("man3", $get_real_file) OR array_search("man5", $get_real_file) OR array_search("mann", $get_real_file)) {
-		shell_exec("diff -u -b ".brlcad_source.$real_file_with_path." ".review_queue_directory.$_GET['newarticles']. "> "  .brlcad_source.$get_real_file[1]."/".$get_real_file[2]."/".$get_real_file[3]."/".str_replace("xml", "patch", $real_name));
+		shell_exec("diff -u -b ".brlcad_source.$real_file_with_path." ".review_queue_directory.$_GET['newarticles']. "> "  .brlcad_source.$get_real_file[0]."/".$get_real_file[1]."/".$get_real_file[2]."/".str_replace("xml", "patch", $real_name));
 		shell_exec("patch ".brlcad_source.$real_file_with_path." < ".brlcad_source.str_replace("xml", "patch", $real_file_with_path)." ");
 		shell_exec("rm -r ".review_queue_directory.$_GET['newarticles']);
 		shell_exec("rm -r ".brlcad_source.str_replace("xml", "patch", $real_file_with_path));
 		echo "<div id = 'message' class = 'updated notice notice-success is-dismissible below-h2'><p>Changes has applied</p><button type = 'button' class = 'notice-dismiss'><span class = 'screen-reader-text'>Dismiss this notice.</span></button></div>";
 		} else {
-		shell_exec("diff -u -b ".brlcad_source.$real_file_with_path." ".review_queue_directory.$_GET['newarticles']. "> "  .brlcad_source.$get_real_file[1]."/".$get_real_file[2]."/".str_replace("xml", "patch", $real_name));
+		shell_exec("diff -u -b ".brlcad_source.$real_file_with_path." ".review_queue_directory.$_GET['newarticles']. "> "  .brlcad_source.$get_real_file[0]."/".$get_real_file[1]."/".str_replace("xml", "patch", $real_name));
 		shell_exec("patch ".brlcad_source.$real_file_with_path." < ".brlcad_source.str_replace("xml", "patch", $real_file_with_path)." ");
 		shell_exec("rm -r ".review_queue_directory.$_GET['newarticles']);
 		shell_exec("rm -r ".brlcad_source.str_replace("xml", "patch", $real_file_with_path));
@@ -161,9 +161,9 @@ function review_edit()
 		$length = sizeof($get_real_file);
 		$real_name = $get_real_file[$length-1];
 		if (array_search("man1", $get_real_file) OR array_search("man3", $get_real_file) OR array_search("man5", $get_real_file) OR array_search("mann", $get_real_file)) {
-			$real_file_with_path = $get_real_file[1]."/".$get_real_file[2]."/".$get_real_file[3]."/".$get_real_file[4];
+			$real_file_with_path = $get_real_file[0]."/".$get_real_file[1]."/".$get_real_file[2]."/".$get_real_file[3];
 		} else {
-			$real_file_with_path = $get_real_file[1]."/".$get_real_file[2]."/".$get_real_file[3];			
+			$real_file_with_path = $get_real_file[0]."/".$get_real_file[1]."/".$get_real_file[2];			
 			}
 			$file = fopen(review_queue_directory.$name, "r");
 			$data = fread($file, filesize(review_queue_directory.$name));
@@ -174,9 +174,7 @@ function review_edit()
 			if (strlen(shell_exec("diff -u -b ".brlcad_source.$real_file_with_path." ".review_queue_directory.$name)) == "")
 			{
 				shell_exec("rm -r ".review_queue_directory.$name);
-			} elseif (strlen(shell_exec("xmllint  --xinclude --schema ".brlcad_source."resources/other/docbook-schema/xsd/docbook.xsd --noout --nonet ".review_queue_directory.$name." 2>&1")) > 100){
-            			shell_exec("rm -r ".review_queue_directory.$name);
-				} else {
+			} else {
 				$filename_of_original_file = explode("-*", $name);
 				$length = sizeof($filename_of_original_file);
 				if(strpos($name, "xml")){
@@ -227,7 +225,7 @@ function xml_edit()
 	$editable_file = str_replace("/", "123", $file_according_category);
 	if (!$_GET['detect']) {
 	 	if (array_search("man1", $filename) or array_search("man3", $filename) or array_search("man5", $filename) or array_search("mann", $filename)) {
-	 		$editable_file = "123system".$editable_file;
+	 		$editable_file = "system123".$editable_file;
 	 	}
 	 }
 	$editable_file  = str_replace("php", "xml", $editable_file);
@@ -337,6 +335,7 @@ function new_document_xml_edit()
     get_currentuserinfo();
     if (strlen($_POST['t1'])>0) {
 	$editable_file  = $current_user->user_login."123".$_POST['s1']."123".$_POST['s2']."123".$_POST['t1'].".xml";
+	$editable_file = str_replace("/", "123", $editable_file);
 	if (file_exists(new_document_directory.$editable_file)) {
 		$file_two = fopen(new_document_directory.$editable_file,"w+"); 
 		fclose($file_two); 
@@ -429,7 +428,7 @@ function rename_doc()
     $filename = explode("123", $_GET['new_document']);
     $length = sizeof($filename);
 ?>
-    <form action = "<?php echo home_url();?>/wp-content/plugins/brlcad-docbook/edit.php?rename = <?php echo $_GET['new_document'];?>" method = "post">
+    <form action = "<?php echo home_url();?>/wp-content/plugins/brlcad-docbook/edit.php?rename=<?php echo $_GET['new_document'];?>" method = "post">
     <input type = "text" name = 'rename' value = "<?php echo $filename[$length-1];?>">
     <input type = "submit" name = 'r' value = "Submit">
     </form>
@@ -513,6 +512,16 @@ function Review_New_Document()
 function cmake() 
 {
     $get_cmakefile_path = explode("123", $_GET['file']);
+    if(array_search("system",$get_cmakefile_path))
+    {
+    shell_exec("cp ".brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/".$get_cmakefile_path[4]."/CMakeLists.txt"." ".new_document_directory.$get_cmakefile_path[2]."123".$get_cmakefile_path[3]."123".$get_cmakefile_path[4]."123CMakeLists.txt");
+    $cmake_file_open = fopen(new_document_directory.$get_cmakefile_path[2]."123".$get_cmakefile_path[3]."123".$get_cmakefile_path[4]."123CMakeLists.txt","r");
+    $cmake_read = fread($cmake_file_open, filesize(new_document_directory.$get_cmakefile_path[2]."123".$get_cmakefile_path[3]."123".$get_cmakefile_path[4]."123CMakeLists.txt"));
+    echo "<form action ='".home_url()."/wp-admin/admin.php?page=add&file=".$_GET['file']."' method='post'>";
+    echo "<textarea cols = '60' rows = '25' name = 'update_cmake'>".$cmake_read."</textarea><br>";
+    echo "<input type = 'submit' value = 'Add'>";
+    fclose($cmake_file_open);
+    } else {
     shell_exec("cp ".brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/CMakeLists.txt"." ".new_document_directory.$get_cmakefile_path[2]."123".$get_cmakefile_path[3]."123CMakeLists.txt");
     $cmake_file_open = fopen(new_document_directory.$get_cmakefile_path[2]."123".$get_cmakefile_path[3]."123CMakeLists.txt","r");
     $cmake_read = fread($cmake_file_open, filesize(new_document_directory.$get_cmakefile_path[2]."123".$get_cmakefile_path[3]."123CMakeLists.txt"));
@@ -520,6 +529,7 @@ function cmake()
     echo "<textarea cols = '60' rows = '25' name = 'update_cmake'>".$cmake_read."</textarea><br>";
     echo "<input type = 'submit' value = 'Add'>";
     fclose($cmake_file_open);
+    }
 }
 
 /**
@@ -534,6 +544,26 @@ function add()
 {
     $get_cmakefile_path = explode("123", $_GET['file']);
     $length = sizeof($get_cmakefile_path);
+    if(array_search("system", $get_cmakefile_path))
+    {
+    $write_cmake_file = fopen(new_document_directory.$get_cmakefile_path[2]."123".$get_cmakefile_path[3]."123".$get_cmakefile_path[4]."123CMakeLists.txt", "w+");
+    $write = fwrite($write_cmake_file, stripslashes($_POST['update_cmake']));
+    fclose($write_cmake_file);
+    shell_exec("mv ".new_document_directory.$get_cmakefile_path[2]."123".$get_cmakefile_path[3]."123".$get_cmakefile_path[4]."123CMakeLists.txt"." ".new_document_directory."CMakeLists.txt");
+    shell_exec("diff -u -b ".brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/".$get_cmakefile_path[4]."/CMakeLists.txt"." ".new_document_directory."CMakeLists.txt". "> "  .brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/".$get_cmakefile_path[4]."/CMakeLists.patch");
+    shell_exec("patch ".brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/".$get_cmakefile_path[4]."/CMakeLists.txt"." < ".brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/".$get_cmakefile_path[4]."/CMakeLists.patch"." ");
+    shell_exec("mv ".review_queue_directory."123articles123en123main_menu.xml"." ".new_document_directory."main_menu.xml");
+    shell_exec("diff -u -b ".brlcad_source."articles/en/main_menu.xml"." ".review_queue_directory."main_menu.xml". "> "  .brlcad_source."/articles/en/main_menu.patch");
+    shell_exec("patch ".brlcad_source."articles/en/main_menu.xml"." < ".brlcad_source."articles/en/main_menu.patch"." ");
+    shell_exec("mv ".new_document_directory.$_GET['file']." ".brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/".$get_cmakefile_path[4]."/".$get_cmakefile_path[$length-1]);
+    shell_exec("svn add ".brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/".$get_cmakefile_path[4]."/".$get_cmakefile_path[$length-1]);
+    shell_exec("rm -r ".brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/".$get_cmakefile_path[4]."/CMakeLists.patch");
+    shell_exec("rm -r ".new_document_directory.$_GET['file']);
+    shell_exec("rm -r ".review_queue_directory."articles/en/main_menu.xml");
+    shell_exec("rm -r ".new_document_directory.str_replace(".xml", ".html", $_GET['file']));
+    shell_exec("rm -r ".new_document_directory."CMakeLists.txt");
+    echo "<div id = 'message' class='updated notice notice-success is-dismissible below-h2'><p>Document successfully Added </p><button type = 'button' class = 'notice-dismiss'><span class = 'screen-reader-text'>Dismiss this notice.</span></button></div>";		
+    } else {
     $write_cmake_file = fopen(new_document_directory.$get_cmakefile_path[2]."123".$get_cmakefile_path[3]."123CMakeLists.txt", "w+");
     $write = fwrite($write_cmake_file, $_POST['update_cmake']);
     fclose($write_cmake_file);
@@ -551,6 +581,7 @@ function add()
     shell_exec("rm -r ".new_document_directory.str_replace(".xml", ".html", $_GET['file']));
     shell_exec("rm -r ".new_document_directory."CMakeLists.txt");
     echo "<div id = 'message' class='updated notice notice-success is-dismissible below-h2'><p>Document successfully Added </p><button type = 'button' class = 'notice-dismiss'><span class = 'screen-reader-text'>Dismiss this notice.</span></button></div>";		
+    }
 }
 
 /**
@@ -655,3 +686,4 @@ $url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
  * ex: shiftwidth=4 tabstop=8
  */
 ?>
+

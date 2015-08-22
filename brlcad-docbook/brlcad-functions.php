@@ -168,7 +168,7 @@ function search_document() {
     <form  action="<?php echo home_url();?>/wp-content/plugins/brlcad-docbook/search_document2.php" method="post">
     <div id = "searchbox">
     <center>
-    <div style = "padding:0%;width:100%;padding-left:0%;float:left;font-size:0.7em;"><a href="<?php echo home_url();?>/index.php/?page_id=216"><h5><img src = "<?php echo home_url();?>/wp-content/themes/brlcad/img/icons/home.png" style="padding-right:1%;width:7%">BRL-CAD Reference Manual</h5></div></a>
+    <div style = "padding:0%;width:100%;padding-left:0%;float:left;font-size:0.7em;"><a href="<?php echo home_url();?>"><h5><img src = "<?php echo home_url();?>/wp-content/themes/brlcad/img/icons/home.png" style="padding-right:1%;width:7%">BRL-CAD Reference Manual</h5></div></a>
     </center>
     <br>
     <input list = "document" placeholder = "Search docs" maxlength = "35" type = "search" name = "s" style = "padding-right:15%">
