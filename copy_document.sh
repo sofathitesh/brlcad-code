@@ -1,21 +1,21 @@
 #!/bin/bash
-brlcad_resource_path="/home/smile/mybrlcadcode/brlcad/trunk/"
-wordpress_path="/var/www/html/docbook/"
+brlcad_resource_path="/home/nouhrasofat/brlcad/"
+wordpress_path="/home/nouhrasofat/public_html/"
 username='hiteshsofat'
 password='hitesh@123'
 #SVN Commit
 
 #update clone repo
 cd $brlcad_resource_path
-sed -i 's/BRLCAD_EXTRADOCS_PHP "Build MAN page output from DocBook documentation" ON/BRLCAD_EXTRADOCS_PHP "Build MAN page output from DocBook documentation" OFF/g' "CMakeLists.txt"
+sed -i '' 's/BRLCAD_EXTRADOCS_PHP "Build MAN page output from DocBook documentation" ON/BRLCAD_EXTRADOCS_PHP "Build MAN page output from DocBook documentation" OFF/g' "CMakeLists.txt"
 svn update
 output=$(svn diff)
 if [ ! -z "$output" ]
 	then	
 		svn commit -m  "hitesh sofat updates" --non-interactive --username  $username --password $password
 		svn update
-		sed -i 's/BRLCAD_EXTRADOCS_PHP "Build MAN page output from DocBook documentation" OFF/BRLCAD_EXTRADOCS_PHP "Build MAN page output from DocBook documentation" ON/g' "CMakeLists.txt"
-		./configure
+		sed -i '' 's/BRLCAD_EXTRADOCS_PHP "Build MAN page output from DocBook documentation" OFF/BRLCAD_EXTRADOCS_PHP "Build MAN page output from DocBook documentation" ON/g' "CMakeLists.txt"
+		cmake -DENABLE_ALL=ON  CMakeLists.txt 
 		make
 	#Create the directory in wordpress root folder
 	if [ -d $wordpress_path -a -d $brlcad_resource_path ];
@@ -63,22 +63,22 @@ if [ ! -z "$output" ]
 					if [ "$i" -eq 0 ] && [ "$j" -eq 0 ]
 						then
 							echo "ok"
-							sed -i 's/<div class="menu">/<div class="menuu">/g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<div class="article">//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<div class="titlepage">//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<div class="itemizedlist">//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/ class="itemizedlist"//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/ class="listitem"//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<[/]div>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<p>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<[/]p>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<hr><[/]hr>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<body><ul>/<body><div class="menu"><ul id="itemizedlist">/g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<\/body><\/html>/<\/div>/g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<div class="menu">/<div class="menuu">/g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<div class="article">//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<div class="titlepage">//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<div class="itemizedlist">//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/ class="itemizedlist"//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/ class="listitem"//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<[/]div>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<p>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<[/]p>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<hr><[/]hr>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<body><ul>/<body><div class="menu"><ul id="itemizedlist">/g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<\/body><\/html>/<\/div>/g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
 
 					fi
 
-						sed -i 's/<?xml version="1.0" encoding="UTF-8"?>//g' "${directory[$i]}/${language_directory[$j]}/"*.php
+						sed -i '' 's/<?xml version="1.0" encoding="UTF-8"?>//g' "${directory[$i]}/${language_directory[$j]}/"*.php
 
 					else
 						echo "${directory[$i]}/${language_directory[$j]}/ directory not found"
@@ -96,21 +96,21 @@ if [ ! -z "$output" ]
 					if [ "$i" -eq 0 ] && [ "$j" -eq 0 ]
 						then
 							echo "ok"
-							sed -i 's/<div class="menu">/<div class="menuu">/g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"							
-							sed -i 's/<div class="article">//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<div class="titlepage">//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<div class="itemizedlist">//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/ class="itemizedlist"//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/ class="listitem"//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<[/]div>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<p>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<[/]p>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<hr><[/]hr>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<body><ul>/<body><div class="menu"><ul id="itemizedlist">/g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
-							sed -i 's/<\/body><\/html>/<\/div>/g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<div class="menu">/<div class="menuu">/g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"							
+							sed -i '' 's/<div class="article">//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<div class="titlepage">//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<div class="itemizedlist">//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/ class="itemizedlist"//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/ class="listitem"//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<[/]div>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<p>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<[/]p>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<hr><[/]hr>//g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<body><ul>/<body><div class="menu"><ul id="itemizedlist">/g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
+							sed -i '' 's/<\/body><\/html>/<\/div>/g' "${directory[$i]}/${language_directory[$j]}/main_menu.html"
 
 					fi
-						sed -i 's/<?xml version="1.0" encoding="UTF-8"?>//g' "${directory[$i]}/${language_directory[$j]}/"*.php
+						sed -i '' 's/<?xml version="1.0" encoding="UTF-8"?>//g' "${directory[$i]}/${language_directory[$j]}/"*.php
 					else
 						echo "${directory[$i]}/${language_directory[$j]}/ directory not found"
 					fi
@@ -123,3 +123,4 @@ if [ ! -z "$output" ]
 else
 	echo "Nothing changes is found"
 fi
+
