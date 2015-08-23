@@ -72,9 +72,15 @@ svn checkout https://svn.code.sf.net/p/brlcad/code/brlcad/trunk brlcad_resource
 
 ## How to run the project
 
-1) give appropriate permissions to copy_document.sh file using: chmod 755 copy_document.sh
+1) give appropriate permissions to copy_document.sh file using: chmod 775 copy_document.sh
 2) run ./copy_document.sh
-3) open you browser and type link like:-  
+3) Open wordpress control Panal. Click on create new Page and make the new page.
+4) Select "BRL-CAD Manual" theme for new page which you created. From "page Attributes section".
+5) Click on settings and click on "Reading" under the setting section.
+6) Click on static page option and set your new created page as default "front page".
+7) Now make the two folder with these names "review" and "new_document" in your wordpress root forlder. ex:- wordpress/
+8) Copy the these xml files from resource which you downloaded from github "all_template.xml" and "book_template.xml" into new_document folder.
+9) open you browser and type link like:-  
 
 http://servername/wordpress_folder_name/articles/en/about.php
 
