@@ -1,8 +1,8 @@
 #!/bin/bash
-brlcad_resource_path="/home/nouhrasofat/brlcad/"
-wordpress_path="/home/nouhrasofat/public_html/"
-username='hiteshsofat'
-password='hitesh@123'
+brlcad_resource_path="/path/to/brlcad/"
+wordpress_path="/path/to/wordpress/"
+username='source forge username'
+password='password'
 #SVN Commit
 
 #update clone repo

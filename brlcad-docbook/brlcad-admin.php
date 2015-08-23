@@ -21,12 +21,14 @@
 
 /**
 * @file brlcad-function/brlcad-admin.php
-* This page hold the coding to show all document to user and admin for edit.
-* If user login then they see the all documents in control panel of plugin
-* This code used the simple technique with help the scan the all document from all directories like articles, books, lessons, etc..
-* This code also made the search form for user with help user enter the keyword or name of file for search
-* This code also provide the drop down list view for searching 
-* This code also holde the paggind view for user so user easy to see the all documents.
+*/
+/**
+* @details This page hold the coding to show all document to user and admin for edit.
+  If user login then they see the all documents in control panel of plugin
+  This code used the simple technique with help the scan the all document from all directories like articles, books, lessons, etc..
+  This code also made the search form for user with help user enter the keyword or name of file for search
+  This code also provide the drop down list view for searching 
+  This code also holde the paggind view for user so user easy to see the all documents.
 */
 
 ini_set('default_charset', 'utf-8');
@@ -136,11 +138,13 @@ if (isset($_GET['pv'])) {
     $pn =20;
 }
 echo "<table class='wp-list-table widefat fixed striped posts'>";
-echo "<tr class='inline-edit-row inline-edit-row-post inline-edit-post quick-edit-row quick-edit-row-post inline-edit-post'><th>File name</th><th>Category</th><th>Option</th></tr>";
+echo "<tr class='inline-edit-row inline-edit-row-post inline-edit-post quick-edit-row quick-edit-row-post inline-edit-post'><th>File name</th><th>Category</th><th>Option</th><th>Delete</th></tr>";
 for ($pv; $pv<$pn;$pv++) {
     if (isset($files_array[$pv])) {
 	echo "<form action='".home_url()."/wp-content/plugins/brlcad-docbook/edit.php?&article=".str_replace("system/","",brlcad_source.$directory_name[$pv])."/".$languages[$pv]."/".str_replace("xml","php",$files_array[$pv])."&url=".$url."' method='post'>";
-	echo "<tr><td>".$files_array[$pv]."</td><td>".$directory_name[$pv]."</td><td><input type='submit' class='button button-primary' value='Edit'></td></form></tr>";
+	echo "<tr><td>".$files_array[$pv]."</td><td>".$directory_name[$pv]."</td><td><input type='submit' class='button button-primary' value='Edit'></td></form>
+       <form action='".home_url()."/wp-admin/admin.php?page=delete&article=".brlcad_source.$directory_name[$pv]."/".$languages[$pv]."/".$files_array[$pv]."' method='post'> <td>
+       <input type='submit' class='button button-primary' value='Delete'></td></form></tr>";
     }
 }
 echo "</table>";
@@ -159,3 +163,4 @@ echo "</tr></table>";
  * ex: shiftwidth=4 tabstop=8
  */
 ?>	
+

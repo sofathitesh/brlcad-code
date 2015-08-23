@@ -18,7 +18,101 @@
  * License along with this file; see the file named COPYING for more
  * information.
  */
+/**
+* @mainpage Description about project
+* @author Hitesh Sofat (Nouhra)
+* @section Introduction
+BRL-CAD has more than a million words of documentation (thousands of pages) in a variety of formats. We have a long-term goal to consolidate as much as possible into the Docbook format so that it can be more directly managed by our revision control system and integrated with the source code. At the same time, we have a user-editable pages that is really easy for users and developers a like to keep up to date. The two, however, are not immediately compatible with one another. Data is not shared or synchronized.
+The main goal of this project would be to synchronize the two so that edits to either are reflected in the other without loss of data. One of the main challenges is how to retain the more expressive Docbook markup within Website so that edits via the pages are not "dumbed down" to the more simple Mediawiki syntax.
 
+The initial thoughts on our end are to implement a wordpresss Plugin that understands how to translate to/from the Docbook format that faithfully preserves all Docbook tagging. You're welcome to suggest another approach.
+
+A great starting point for this project are our existing command sets for BRL-CAD and MGED (our main geometry editor). They respectively constitute approximately 400 and 700 commands that have a page of documentation each.
+* 
+* @section Requirements
+* @subsection Procedure 
+1) Install Apache server
+
+2) Install window or Linux
+
+3) Install Mysql Database
+
+4) Install Wordpress
+*
+* @section Setup Project on your server
+*
+* @subsection Procedure
+1) Download the code using "git clone command"
+
+2) Copy these plugins "brlcad-docbook" , "google_Language_Translator" folder to your wordpress plugin directroy ex:- wordpress/wp-content/plugins/
+
+3) Copy the "brlcad" folder to Theme directroy of wordpress ex:- wordpress/wp-content/themes/
+
+4) Download the brlcad code using this command
+
+svn checkout https://svn.code.sf.net/p/brlcad/code/brlcad/trunk brlcad_resource
+
+5) Copy the copy_document.sh script file to brlcad resource code "brlcad_resource"
+* 
+* @section Now for activating the theme and plugin
+*
+* @subsection Procedure
+1) Open your wordpress account as wordpress admin
+
+2) Go in plugin section and click on active brlcad-docbook, google_Language_Translator plugin
+
+3) Go in appearance and then click on theme.
+
+4) Now click on brlcad theme active button so then your theme is activated.
+* 
+* @section Now for plugin settings
+* @subsection Procedure
+ 1) Go to plugin directory
+
+ "wordpress/wp-content/plugins/brlcad-docbook"
+
+ 2) open config.php file
+
+ 3) Set you brlcad source code path
+
+ 4) set your review directory path (which are placed in wordpress folder if there is not placed then make one directory there and set the name of directory is review)
+
+ 5) Set your "new_document" directory path which are placed in wordpress root. ex:- wordpress/new_document/ 
+*
+* @section Now for copy_document.sh script settings.
+* @subsection Procedure
+1) Copy the script and place in brlcad source folder ex:- mybrlcadsource/brlcad/trunk/
+
+2) Open copy_document.sh in editor and do some settings
+
+3) set the brlcad source code directory path
+
+4) set the wordpress directory path
+*
+* @section How to run the project
+* @subsection Procedure
+1) give appropriate permissions to copy_document.sh file using: chmod 775 copy_document.sh
+
+2) run ./copy_document.sh
+
+3) Open wordpress control Panal. Click on create new Page and make the new page.
+
+4) Select "BRL-CAD Manual" theme for new page which you created. From "page Attributes section".
+
+5) Click on settings and click on "Reading" under the setting section.
+
+6) Click on static page option and set your new created page as default "front page".
+
+7) Now make the two folder with these names "review" and "new_document" in your wordpress root forlder. ex:- wordpress/
+
+8) Copy the these xml files from resource which you downloaded from github "all_template.xml" and "book_template.xml" into new_document folder.
+
+9) open you browser and type link like:-  
+*
+http://servername/wordpress_folder_name/articles/en/about.php
+*
+Here servername can be replaced with localhost if you are trying to run the project on your own computer.
+*/
 /*
 Plugin Name:Brlcad-Docbook
 Url:hiteshkumarsofat.wordpress.com
@@ -550,6 +644,7 @@ function add()
     $write = fwrite($write_cmake_file, stripslashes($_POST['update_cmake']));
     fclose($write_cmake_file);
     shell_exec("mv ".new_document_directory.$get_cmakefile_path[2]."123".$get_cmakefile_path[3]."123".$get_cmakefile_path[4]."123CMakeLists.txt"." ".new_document_directory."CMakeLists.txt");
+
     shell_exec("diff -u -b ".brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/".$get_cmakefile_path[4]."/CMakeLists.txt"." ".new_document_directory."CMakeLists.txt". "> "  .brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/".$get_cmakefile_path[4]."/CMakeLists.patch");
     shell_exec("patch ".brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/".$get_cmakefile_path[4]."/CMakeLists.txt"." < ".brlcad_source.$get_cmakefile_path[2]."/".$get_cmakefile_path[3]."/".$get_cmakefile_path[4]."/CMakeLists.patch"." ");
     shell_exec("mv ".review_queue_directory."123articles123en123main_menu.xml"." ".new_document_directory."main_menu.xml");
@@ -639,7 +734,7 @@ function full_delete( )
     $length = sizeof($cmake);
     $cmake_file = str_replace($cmake[$length-1], "CMakeLists.txt", $_GET['article']);
     $cmake_open = fopen(review_queue_directory.str_replace("/", "123", $cmake_file),"w+");
-    $file_data = fwrite($cmake_open, $_POST['data']);
+    $file_data = fwrite($cmake_open, stripcslashes($_POST['data']));
     fclose($cmake_open);
     shell_exec("diff -u -b ".$cmake_file." ".review_queue_directory.str_replace("/", "123",$cmake_file). "> "  .str_replace("CMakeLists.txt","",$cmake_file)."CMakeLists.patch");
     shell_exec("patch ".$cmake_file." < ".str_replace("CMakeLists.txt", "CMakeLists.patch", $cmake_file)." ");

@@ -24,9 +24,9 @@
 * This file contains the references paths of different resources for different purpose.
 */
 
-define('brlcad_source','/home/nouhrasofat/brlcad/doc/docbook/');
-define('review_queue_directory', '/home/nouhrasofat/public_html/review/');
-define('new_document_directory', '/home/nouhrasofat/public_html/new_document/');
+define('brlcad_source','/path/to/brlcad/to/docbook/folder/');
+define('review_queue_directory', '/path/to/review/folder/');
+define('new_document_directory', '/path/to/new_document/directory/');
 /*
  * Local Variables:
  * mode: PHP
