@@ -1,0 +1,21 @@
+<article xmlns="http://docbook.org/ns/docbook" version="5.0">
+	<info>
+	<title>Title</title>
+	<author>
+	<personname>
+		<firstname>First name</firstname>
+		<othername>Middle Name</othername>
+		<surname>Sur name</surname>
+	</personname>
+	<affiliation>
+		<orgname>Org Name</orgname>
+		<address>
+			<email>Email id</email>
+		</address>
+	</affiliation>
+	</author>
+	</info>
+	<section xml:id="article-body">
+		<para>Paragraph</para>
+	</section>
+</article>
