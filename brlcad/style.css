@@ -10,7 +10,7 @@ a:hover{color:#b32c44;}
 html, body, .fh{height:100%;width:100%;max-width:100%;}
 body{font-family:'Open Sans', sans-serif;background-color:#faf9f9;color:#222;}
 body.page-template-template-center-php{background:#333;color:#fefefe;}
-div.site-content{padding:1.8em 0 2em 0;min-height:100%;position:relative;}
+div.site-content{padding:1.8em 0 2em 0;min-height:100%;position:relative;padding-bottom:20%}
 body.home div.site-content{padding:0;}
 #manual-box{margin:0 auto;background:black;max-width:100%;width:40%;border:1px solid #ee3b5b;border-radius:10px;}
 #manual-box h1{padding:2% 2% 2% 2%;}
@@ -95,7 +95,7 @@ span.author a.fn{font-weight:300;font-size:inherit;}
 div.entry-content{margin-top:0;}
 .wp-caption img[class*="wp-image-"]{width:100%;max-width:100%;margin:0;}
 body.single-post div.nav-links div.columns{padding:0;}
-footer#site-footer{background-color:#222;color:#fefefe;padding:3em 0;}
+footer#site-footer{background-color:#222;color:#fefefe;padding:3em 0;bottom:0px;position:absolute;width:100%}
 footer#site-footer .widget-title{margin-bottom:0.5em;color:#888;}
 footer#site-footer .widget li{list-style-type:none;}
 input[type="search"]{background:none;color:black;border:2px solid #666;margin:0 auto;padding-right:20px;font-size:1em;max-width:93%;}
